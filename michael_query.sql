@@ -2,7 +2,7 @@
 SELECT * FROM transaction WHERE cost = (SELECT MIN(cost) FROM transaction) ORDER BY time ASC;
 
 -- Inventory items per menu item (dish)
-SELECT dish.name COUNT(dishinventory.fk_dish)
+SELECT dish.name, COUNT(dishinventory.fk_dish) AS ingredient_count
 FROM dish
 JOIN dishinventory
 ON dishinventory.fk_dish = dish.dish_id
