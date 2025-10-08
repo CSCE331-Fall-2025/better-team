@@ -67,6 +67,9 @@ public class serverDefaultController {
     private int qSide; 
     private int qApp;
     
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
 
     @FXML
     public void initialize() {
@@ -182,7 +185,6 @@ public class serverDefaultController {
             e.printStackTrace();
             System.exit(0);
         }
-        
     }
 
     private void closeWindow() { 

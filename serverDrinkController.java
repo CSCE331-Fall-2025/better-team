@@ -48,6 +48,10 @@ public class serverDrinkController {
     private Button AddOrderButton; //match the fx:id value from Scene Builder
     
     private List<Integer> selectedItems = new ArrayList<>();;
+
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
     
     // This method runs automatically when the FXML loads
     @FXML
