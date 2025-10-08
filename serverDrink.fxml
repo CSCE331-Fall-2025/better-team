@@ -47,7 +47,7 @@
                <bottom>
                   <BorderPane maxHeight="1.7976931348623157E308" minHeight="75.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <left>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #e3130b;" text="CANCEL" textFill="WHITE" BorderPane.alignment="CENTER">
+                        <Button fx:id="CancelButton" mnemonicParsing="false" style="-fx-background-color: #e3130b;" text="CANCEL" textFill="WHITE" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets left="10.0" />
                            </BorderPane.margin>
@@ -57,7 +57,7 @@
                         </Button>
                      </left>
                      <right>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #68d955;" text="ADD TO ORDER" textFill="WHITE" BorderPane.alignment="CENTER">
+                        <Button fx:id="AddOrderButton" mnemonicParsing="false" style="-fx-background-color: #68d955;" text="ADD TO ORDER" textFill="WHITE" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets right="10.0" />
                            </BorderPane.margin>
@@ -67,7 +67,7 @@
                         </Button>
                      </right>
                      <center>
-                        <TextField BorderPane.alignment="CENTER">
+                        <TextField fx:id="AddNote" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets left="50.0" right="50.0" />
                            </BorderPane.margin>
