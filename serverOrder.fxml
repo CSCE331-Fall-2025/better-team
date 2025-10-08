@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderController">
     <top>
         <AnchorPane fx:id="topBar" prefHeight="60.0" style="-fx-background-color: #BB2719;">
             <HBox fx:id="topHBox" alignment="CENTER" spacing="200.0">
@@ -39,9 +39,7 @@
                         <Button fx:id="bowlButton" minHeight="75" minWidth="75" text="Bowl" HBox.hgrow="ALWAYS" />
                         <Button fx:id="plateButton" minHeight="75" minWidth="75" text="Plate" HBox.hgrow="ALWAYS" />
                         <Button fx:id="bigPlateButton" minHeight="75" minWidth="75" text="Big Plate" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="bowlButton1" minHeight="75" minWidth="75" text="Appetizer" />
-                        <Button fx:id="aLaCarteButton" minHeight="75" minWidth="75" text="A La Carte" wrapText="true" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="cateringButton" minHeight="75" minWidth="75" text="Catering" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="appButton" minHeight="75" minWidth="75" text="Appetizer" />
                         <Button fx:id="drinksButton" minHeight="75" minWidth="75" text="Drinks" HBox.hgrow="ALWAYS" />
                     </children>
                <VBox.margin>
