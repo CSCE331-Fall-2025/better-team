@@ -1,0 +1,33 @@
+
+# short gitignore list
+
+# -- Compiled bytecode ---
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+#JavaFX Scene Builder caches
+*.fxml~
+*.bak
+*~backup*
+*.tmp
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Database credentials
+dbSetup.java
+
+# OS-specific temporary files
+*.swp
+*.swo
+*.tmp
+
+
