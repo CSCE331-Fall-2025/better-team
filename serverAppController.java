@@ -17,6 +17,10 @@ import javafx.event.ActionEvent;
 
 public class serverAppController {
 
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
     //apps
     @FXML
     private Button ChickenRoll;
