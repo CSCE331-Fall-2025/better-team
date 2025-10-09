@@ -43,6 +43,10 @@ public class serverAppController {
     private List<Integer> selectedItems = new ArrayList<>();;
 
     private int qApp;
+
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
     
     // This method runs automatically when the FXML loads
     @FXML
