@@ -17,6 +17,10 @@ import javafx.event.ActionEvent;
 
 public class serverDrinkController {
 
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
     //drinks
     @FXML
     private Button Coke;

@@ -38,7 +38,7 @@ public class orderController {
 
         checkoutButton.setOnAction(this::handleCheckout);
 
-        logoutButton.setOnAction(this::handleDefault);
+        logoutButton.setOnAction(this::handlelogout);
     }
 
     @FXML
@@ -59,6 +59,11 @@ public class orderController {
     @FXML
     private void handleCheckout(ActionEvent event) {
         switchSceneWithList(event, "serverCheckout.fxml");
+    }
+
+    @FXML
+    private void handlelogout(ActionEvent event) {
+        switchSceneWithList(event, "login.fxml");
     }
 
     /**

@@ -20,6 +20,9 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 
+/**
+ * @author Ethan
+ */
 public class ManagerHomeController {
     
     @FXML
@@ -37,11 +40,16 @@ public class ManagerHomeController {
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database"; //database location
     
     // This method runs automatically when the FXML loads
+    /**
+     * @param none
+     * @return void
+     * @throws exception
+     */
     @FXML
     public void initialize() {
         // Set up what happens when button is clicked
         closeButton.setOnAction(event -> closeWindow());
-        restockButton.setOnAction(event -> switchScene("inventory-view.fxml"));
+        restockButton.setOnAction(event -> switchScene("inventory.fxml"));
         orderTrendsButton.setOnAction(event -> switchScene("order-trends.fxml"));
         employeeDataButton.setOnAction(event -> switchScene("managerEmployeeData.fxml"));
     }
@@ -51,6 +59,10 @@ public class ManagerHomeController {
         stage.close();
     }
 
+    /**
+     * 
+     * @param fileName the name of the file thats the new scene
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
