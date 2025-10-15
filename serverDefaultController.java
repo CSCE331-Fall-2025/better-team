@@ -16,11 +16,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class serverDefaultController {
-
-    public void setSelectedItems(List<Integer> selectedItems) {
-        this.selectedItems = selectedItems;
-    }
-
     //sides
     @FXML
     private Button White_Steamed_Rice;
