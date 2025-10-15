@@ -27,7 +27,7 @@
                </font></Text>
             <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                <image>
-                  <Image url="@images/panda.png"/>
+                  <Image url="@../images/panda.png"/>
                </image>
             </ImageView>
             <StackPane layoutX="211.0" layoutY="-6.0" prefHeight="60.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-6.0">

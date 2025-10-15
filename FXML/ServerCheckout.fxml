@@ -20,7 +20,7 @@
                 <Label fx:id="timeLabel" text="Current Time" textAlignment="CENTER" textFill="WHITE" />
                 <ImageView fx:id="logoImage" fitHeight="50" preserveRatio="true">
                     <image>
-                        <Image url="@images/Panda.png" />
+                        <Image url="@../images/Panda.png" />
                     </image>
                 </ImageView>
             </HBox>

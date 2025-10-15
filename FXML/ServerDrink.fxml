@@ -38,7 +38,7 @@
                <right>
                   <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <image>
-                        <Image url="@images/panda.png" />
+                        <Image url="@../images/panda.png" />
                      </image>
                   </ImageView>
                </right>
@@ -97,7 +97,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/sprite.PNG" />
+                                                      <Image url="@../images/sprite.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -106,7 +106,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/coke.PNG" />
+                                                      <Image url="@../images/coke.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -118,7 +118,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="90.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/drp.PNG" />
+                                                      <Image url="@../images/drp.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -130,7 +130,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="90.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/teasweet.PNG" />
+                                                      <Image url="@../images/teasweet.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -159,7 +159,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/mangoguavatea.PNG" />
+                                                      <Image url="@../images/mangoguavatea.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -171,7 +171,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/pomegranatepineapple.PNG" />
+                                                      <Image url="@../images/pomegranatepineapple.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -183,7 +183,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/watermelonmango.PNG" />
+                                                      <Image url="@../images/watermelonmango.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -192,7 +192,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/peachlychee.PNG" />
+                                                      <Image url="@../images/peachlychee.PNG" />
                                                    </image>
                                                 </ImageView>
                                              </graphic></Button>
