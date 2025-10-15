@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class orderController {
+public class OrderController {
 
 
     private static final List<Integer> selectedItems = new ArrayList<>();
@@ -43,27 +43,27 @@ public class orderController {
 
     @FXML
     private void handleDefault(ActionEvent event) {
-        switchSceneWithList(event, "serverDefault.fxml");
+        switchSceneWithList(event, "ServerDefault.fxml");
     }
 
     @FXML
     private void handleApp(ActionEvent event) {
-        switchSceneWithList(event, "serverApp.fxml");
+        switchSceneWithList(event, "ServerApp.fxml");
     }
 
     @FXML
     private void handleDrink(ActionEvent event) {
-        switchSceneWithList(event, "serverDrink.fxml");
+        switchSceneWithList(event, "ServerDrink.fxml");
     }
 
     @FXML
     private void handleCheckout(ActionEvent event) {
-        switchSceneWithList(event, "serverCheckout.fxml");
+        switchSceneWithList(event, "ServerCheckout.fxml");
     }
 
     @FXML
     private void handlelogout(ActionEvent event) {
-        switchSceneWithList(event, "login.fxml");
+        switchSceneWithList(event, "Login.fxml");
     }
 
     /**

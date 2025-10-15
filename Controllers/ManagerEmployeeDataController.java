@@ -3,24 +3,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class managerEmployeeDataController {
+public class ManagerEmployeeDataController {
 
     // Employee List Table fx-is;
-    @FXML private TableView<managerEmployeeDataModel.Employee> employeeListTable;
-    @FXML private TableColumn<managerEmployeeDataModel.Employee, Integer> employeeIdColumn;
-    @FXML private TableColumn<managerEmployeeDataModel.Employee, String>  employeeNameColumn;
+    @FXML private TableView<ManagerEmployeeDataModel.Employee> employeeListTable;
+    @FXML private TableColumn<ManagerEmployeeDataModel.Employee, Integer> employeeIdColumn;
+    @FXML private TableColumn<ManagerEmployeeDataModel.Employee, String>  employeeNameColumn;
 
 	// Employee Metric Table fx-ids
-    @FXML private TableView<managerEmployeeDataModel.EmployeeMetric> employeeMetricTable;
-    @FXML private TableColumn<managerEmployeeDataModel.EmployeeMetric, String> dateColumn;
-    @FXML private TableColumn<managerEmployeeDataModel.EmployeeMetric, String> timeColumn;
-    @FXML private TableColumn<managerEmployeeDataModel.EmployeeMetric, String> costColumn;
+    @FXML private TableView<ManagerEmployeeDataModel.EmployeeMetric> employeeMetricTable;
+    @FXML private TableColumn<ManagerEmployeeDataModel.EmployeeMetric, String> dateColumn;
+    @FXML private TableColumn<ManagerEmployeeDataModel.EmployeeMetric, String> timeColumn;
+    @FXML private TableColumn<ManagerEmployeeDataModel.EmployeeMetric, String> costColumn;
 
     // Nav buttons on the right border to navigate to other manager pages
     @FXML private Button restockNavButton, orderNavButton, employeeNavButton;
 
 	// Init the model for this MVC component
-    private final managerEmployeeDataModel model = new managerEmployeeDataModel();
+    private final ManagerEmployeeDataModel model = new ManagerEmployeeDataModel();
 
 	
     @FXML
@@ -37,7 +37,7 @@ public class managerEmployeeDataController {
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));         // getCost()
 
         // Load employees
-        ObservableList<managerEmployeeDataModel.Employee> employees = model.getAllEmployees();
+        ObservableList<ManagerEmployeeDataModel.Employee> employees = model.getAllEmployees();
         employeeListTable.setItems(employees);
         employeeListTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 

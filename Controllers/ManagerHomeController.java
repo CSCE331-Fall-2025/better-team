@@ -41,9 +41,9 @@ public class ManagerHomeController {
     public void initialize() {
         // Set up what happens when button is clicked
         closeButton.setOnAction(event -> closeWindow());
-        restockButton.setOnAction(event -> switchScene("inventory-view.fxml"));
-        orderTrendsButton.setOnAction(event -> switchScene("order-trends.fxml"));
-        employeeDataButton.setOnAction(event -> switchScene("managerEmployeeData.fxml"));
+        restockButton.setOnAction(event -> switchScene("../FXML/Inventory.fxml"));
+        orderTrendsButton.setOnAction(event -> switchScene("OrderTrends.fxml"));
+        employeeDataButton.setOnAction(event -> switchScene("ManagerEmployeeData.fxml"));
     }
     
     private void closeWindow() { 

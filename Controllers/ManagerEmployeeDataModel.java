@@ -1,10 +1,12 @@
+package Controllers;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.math.BigDecimal;
 
-public class managerEmployeeDataModel {
+public class ManagerEmployeeDataModel {
 
     // ---- JDBC connection config  ----
     private static final String URL  = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";

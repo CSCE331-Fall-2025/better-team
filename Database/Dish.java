@@ -1,3 +1,4 @@
+package Database;
 import javafx.beans.property.*;
 
 public class Dish {

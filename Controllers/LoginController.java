@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import javafx.collections.ObservableList;
 
-public class loginController {
+public class LoginController {
 
     @FXML
     private Button ServerButton;
@@ -21,8 +21,8 @@ public class loginController {
 
     @FXML
     public void initialize() {
-        ServerButton.setOnAction(e-> switchScene("serverOrder.fxml"));
-        ManagerButton.setOnAction(e-> switchScene("manager-home.fxml"));
+        ServerButton.setOnAction(e-> switchScene("../FXML/ServerOrder.fxml"));
+        ManagerButton.setOnAction(e-> switchScene("ManagerHome.fxml"));
         ExitButton.setOnAction(e-> closeWindow());
     }
     

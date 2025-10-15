@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
-public class serverAppController {
+public class ServerAppController {
 
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
@@ -56,7 +56,7 @@ public class serverAppController {
         VegRoll.setOnAction(e -> handleVegRoll());
         Rangoon.setOnAction(e -> handleRangoon());
 
-        CancelButton.setOnAction(event -> switchScene("serverOrder.fxml"));
+        CancelButton.setOnAction(event -> switchScene("FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
     }
     
@@ -76,7 +76,7 @@ public class serverAppController {
     @FXML
     private void handleAddOrderButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("serverCheckOut.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ServerCheckout.fxml"));
             Parent root = loader.load();
 
             checkoutController checkoutController = loader.getController();

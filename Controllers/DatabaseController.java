@@ -1,3 +1,4 @@
+package Controllers;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -5,6 +6,9 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import Database.Dish;
+import Database.Item;
 
 public class DatabaseController {
 

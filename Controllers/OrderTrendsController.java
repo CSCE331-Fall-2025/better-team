@@ -52,8 +52,8 @@ public class OrderTrendsController {
         // Set up what happens when button is clicked
         runQuery();
         closeButton.setOnAction(event -> closeWindow());
-        restockButton.setOnAction(event -> switchScene("inventory-view.fxml"));
-        employeeDataButton.setOnAction(event -> switchScene("managerEmployeeData.fxml"));
+        restockButton.setOnAction(event -> switchScene("Inventory.fxml"));
+        employeeDataButton.setOnAction(event -> switchScene("ManagerEmployeeData.fxml"));
 
         // make table actually show data
         dishColumn.setCellValueFactory(cellData -> 
