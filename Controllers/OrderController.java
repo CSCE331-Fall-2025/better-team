@@ -1,3 +1,5 @@
+package controllers;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,27 +45,27 @@ public class OrderController {
 
     @FXML
     private void handleDefault(ActionEvent event) {
-        switchSceneWithList(event, "ServerDefault.fxml");
+        switchSceneWithList(event, "/FXML/ServerDefault.fxml");
     }
 
     @FXML
     private void handleApp(ActionEvent event) {
-        switchSceneWithList(event, "ServerApp.fxml");
+        switchSceneWithList(event, "/FXML/ServerApp.fxml");
     }
 
     @FXML
     private void handleDrink(ActionEvent event) {
-        switchSceneWithList(event, "ServerDrink.fxml");
+        switchSceneWithList(event, "/FXML/ServerDrink.fxml");
     }
 
     @FXML
     private void handleCheckout(ActionEvent event) {
-        switchSceneWithList(event, "ServerCheckout.fxml");
+        switchSceneWithList(event, "/FXML/ServerCheckout.fxml");
     }
 
     @FXML
     private void handlelogout(ActionEvent event) {
-        switchSceneWithList(event, "Login.fxml");
+        switchSceneWithList(event, "/FXML/Login.fxml");
     }
 
     /**
@@ -80,17 +82,17 @@ public class OrderController {
             Parent root = loader.load();
 
             Object ctrl = loader.getController();
-            if (ctrl instanceof serverDefaultController) {
-                serverDefaultController defaultCtrl = (serverDefaultController) ctrl;
+            if (ctrl instanceof ServerDefaultController) {
+                ServerDefaultController defaultCtrl = (ServerDefaultController) ctrl;
                 defaultCtrl.setSelectedItems(selectedItems);
-            } else if (ctrl instanceof serverAppController) {
-                serverAppController appCtrl = (serverAppController) ctrl;
+            } else if (ctrl instanceof ServerAppController) {
+                ServerAppController appCtrl = (ServerAppController) ctrl;
                 appCtrl.setSelectedItems(selectedItems);
-            } else if (ctrl instanceof serverDrinkController) {
-                serverDrinkController drinkCtrl = (serverDrinkController) ctrl;
+            } else if (ctrl instanceof ServerDrinkController) {
+                ServerDrinkController drinkCtrl = (ServerDrinkController) ctrl;
                 drinkCtrl.setSelectedItems(selectedItems);
-            } else if (ctrl instanceof checkoutController) {
-                checkoutController checkoutCtrl = (checkoutController) ctrl;
+            } else if (ctrl instanceof CheckoutController) {
+                CheckoutController checkoutCtrl = (CheckoutController) ctrl;
                 checkoutCtrl.setSelectedItems(selectedItems);
             }
 

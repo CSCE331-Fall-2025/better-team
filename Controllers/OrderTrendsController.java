@@ -1,3 +1,5 @@
+package controllers;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+
+import app.dbSetup;
 
 public class OrderTrendsController {
     
@@ -52,8 +56,8 @@ public class OrderTrendsController {
         // Set up what happens when button is clicked
         runQuery();
         closeButton.setOnAction(event -> closeWindow());
-        restockButton.setOnAction(event -> switchScene("Inventory.fxml"));
-        employeeDataButton.setOnAction(event -> switchScene("ManagerEmployeeData.fxml"));
+        restockButton.setOnAction(event -> switchScene("/FXML/Inventory.fxml"));
+        employeeDataButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
 
         // make table actually show data
         dishColumn.setCellValueFactory(cellData -> 

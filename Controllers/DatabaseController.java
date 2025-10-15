@@ -1,4 +1,5 @@
-package Controllers;
+package controllers;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,6 +10,8 @@ import java.util.List;
 
 import Database.Dish;
 import Database.Item;
+
+import app.dbSetup;
 
 public class DatabaseController {
 

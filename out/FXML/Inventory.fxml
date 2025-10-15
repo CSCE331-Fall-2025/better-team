@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DatabaseController"
+            prefWidth="800" prefHeight="600">
+
+    <children>
+        <Label text="Inventory" layoutX="30" layoutY="20" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <TableView fx:id="tableView" layoutX="30" layoutY="50" prefWidth="740" prefHeight="200">
+            <columns>
+                <TableColumn fx:id="itemColumn" text="Item" prefWidth="200"/>
+                <TableColumn fx:id="currentQtyColumn" text="Current Qty" prefWidth="150"/>
+                <TableColumn fx:id="recommendedColumn" text="Target Qty" prefWidth="150"/>
+                <TableColumn fx:id="differenceColumn" text="Difference" prefWidth="150"/>
+            </columns>
+        </TableView>
+
+        <Label text="Restock Inventory:" layoutX="30" layoutY="270"/>
+        <ComboBox fx:id="itemSelect" layoutX="160" layoutY="265" prefWidth="180"/>
+        <TextField fx:id="quantityField" layoutX="350" layoutY="265" prefWidth="100" promptText="Qty"/>
+        <Button text="Update Inventory" layoutX="460" layoutY="265" onAction="#handleRestock"/>
+
+        <Label text="Dish Prices" layoutX="30" layoutY="320" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <TableView fx:id="dishTableView" layoutX="30" layoutY="350" prefWidth="740" prefHeight="180">
+            <columns>
+                <TableColumn fx:id="dishNameColumn" text="Dish Name" prefWidth="400"/>
+                <TableColumn fx:id="dishPriceColumn" text="Price" prefWidth="200"/>
+            </columns>
+        </TableView>
+
+        <Label text="Update Dish Price:" layoutX="30" layoutY="550"/>
+        <ComboBox fx:id="priceItemSelect" layoutX="160" layoutY="545" prefWidth="180"/>
+        <TextField fx:id="priceField" layoutX="350" layoutY="545" prefWidth="100" promptText="Price"/>
+        <Button text="Update Price" layoutX="460" layoutY="545" onAction="#handlePriceUpdate"/>
+
+        <Button fx:id="queryButton" text="Reload Inventory" layoutX="600" layoutY="265"/>
+        <Button fx:id="closeButton" text="Close" layoutX="700" layoutY="545"/>
+
+    </children>
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+</AnchorPane>

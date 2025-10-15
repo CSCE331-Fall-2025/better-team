@@ -1,3 +1,5 @@
+package controllers;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -17,9 +19,9 @@ import javafx.event.ActionEvent;
 
 public class ServerAppController {
 
-    public void setSelectedItems(List<Integer> selectedItems) {
+    /*public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
-    }
+    }*/
 
     //apps
     @FXML
@@ -76,10 +78,10 @@ public class ServerAppController {
     @FXML
     private void handleAddOrderButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ServerCheckout.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ServerCheckout.fxml"));
             Parent root = loader.load();
 
-            checkoutController checkoutController = loader.getController();
+            CheckoutController checkoutController = loader.getController();
 
             checkoutController.setSelectedItems(selectedItems);
 

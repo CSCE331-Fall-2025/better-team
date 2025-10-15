@@ -1,9 +1,12 @@
-package Controllers;
+package controllers;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import Database.Item;
+
+import app.dbSetup;
 
 public class InventoryModel {
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";

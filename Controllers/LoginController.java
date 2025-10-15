@@ -1,3 +1,4 @@
+package controllers;
 
 import java.sql.*;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 
 import javafx.collections.ObservableList;
 
+import app.dbSetup;
+
 public class LoginController {
 
     @FXML
@@ -21,8 +24,8 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        ServerButton.setOnAction(e-> switchScene("../FXML/ServerOrder.fxml"));
-        ManagerButton.setOnAction(e-> switchScene("ManagerHome.fxml"));
+        ServerButton.setOnAction(e-> switchScene("/FXML/ServerOrder.fxml"));
+        ManagerButton.setOnAction(e-> switchScene("/FXML/ManagerHome.fxml"));
         ExitButton.setOnAction(e-> closeWindow());
     }
     

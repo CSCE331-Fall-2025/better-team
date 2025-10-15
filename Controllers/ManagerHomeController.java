@@ -1,3 +1,5 @@
+package controllers;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,9 +43,9 @@ public class ManagerHomeController {
     public void initialize() {
         // Set up what happens when button is clicked
         closeButton.setOnAction(event -> closeWindow());
-        restockButton.setOnAction(event -> switchScene("../FXML/Inventory.fxml"));
-        orderTrendsButton.setOnAction(event -> switchScene("OrderTrends.fxml"));
-        employeeDataButton.setOnAction(event -> switchScene("ManagerEmployeeData.fxml"));
+        restockButton.setOnAction(event -> switchScene("/FXML/Inventory.fxml"));
+        orderTrendsButton.setOnAction(event -> switchScene("/FXML/OrderTrends.fxml"));
+        employeeDataButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
     }
     
     private void closeWindow() { 
