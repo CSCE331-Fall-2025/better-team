@@ -1,0 +1,200 @@
+package controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
+
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+
+import javafx.stage.Stage;
+
+import javafx.event.ActionEvent;
+
+public class ServerDefaultController {
+    /*
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }*/
+
+    //sides
+    @FXML
+    private Button White_Steamed_Rice;
+    @FXML
+    private Button Fried_Rice;
+    @FXML
+    private Button Chow_Mein;
+    @FXML
+    private Button Super_Green;
+
+    //entrees
+    @FXML
+    private Button Honey_Walnut_Shrimp;
+    @FXML
+    private Button Beijing_Beef;
+    @FXML
+    private Button Broccoli_Beef;
+    @FXML
+    private Button Honey_Sesame_Chicken;
+    @FXML
+    private Button Kung_Pao_Chicken;
+    @FXML
+    private Button Black_Pepper_Chicken;
+    @FXML
+    private Button Orange_Chicken;
+    @FXML
+    private Button Hot_Orange_Chicken;
+    @FXML
+    private Button String_Bean_Chicken_Breast;
+    @FXML
+    private Button Super_Green2;
+
+
+    //bottom buttons
+    @FXML
+    private Button CancelButton; //match the fx:id value from Scene Builder
+    
+    @FXML
+    private TextField AddNote; //match the fx:id value from Scene Builder
+    
+    @FXML
+    private Button AddOrderButton; //match the fx:id value from Scene Builder
+    
+    //stuff
+    
+    private List<Integer> selectedItems = new ArrayList<>();;
+    private int qEntree; 
+    private int qSide; 
+    private int qApp;
+    
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    @FXML
+    public void initialize() {
+        //sides
+        White_Steamed_Rice.setOnAction(event -> handleWhite_Steamed_Rice());
+        Fried_Rice.setOnAction(event -> handleFried_Rice());
+        Chow_Mein.setOnAction(event -> handleChow_Mein());
+        Super_Green.setOnAction(event -> handleSuper_Green());
+
+        //entrees
+        Honey_Walnut_Shrimp.setOnAction(event -> handleHoney_Walnut_Shrimp());
+        Beijing_Beef.setOnAction(event -> handleBeijing_Beef());
+        Broccoli_Beef.setOnAction(event -> handleBroccoli_Beef());
+        Honey_Sesame_Chicken.setOnAction(event -> handleHoney_Sesame_Chicken());
+        Kung_Pao_Chicken.setOnAction(event -> handleKung_Pao_Chicken());
+        Black_Pepper_Chicken.setOnAction(event -> handleBlack_Pepper_Chicken());
+        Orange_Chicken.setOnAction(event -> handleOrange_Chicken());
+        Hot_Orange_Chicken.setOnAction(event -> handleHot_Orange_Chicken());
+        String_Bean_Chicken_Breast.setOnAction(event -> handleString_Bean_Chicken_Breast());
+        Super_Green2.setOnAction(event -> handleSuper_Green2());
+
+        CancelButton.setOnAction(event -> switchScene("/FXML/ServerOrder.fxml"));
+        AddOrderButton.setOnAction(this::handleAddOrderButton);
+    }
+
+    @FXML
+    private void handleAddOrderButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ServerCheckout.fxml"));
+            Parent root = loader.load();
+
+            CheckoutController checkoutController = loader.getController();
+
+            checkoutController.setSelectedItems(selectedItems);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleWhite_Steamed_Rice(){
+        selectedItems.add(900 + qSide);
+    }
+
+    private void handleFried_Rice() {
+        selectedItems.add(300 + qSide);
+    }
+
+    private void handleChow_Mein() {
+        selectedItems.add(500 + qSide);
+    }
+
+    private void handleSuper_Green() {
+        selectedItems.add(1400 + qSide);
+    }
+
+    //entree
+    private void handleHoney_Walnut_Shrimp() {
+        selectedItems.add(1000 + qEntree);
+    }
+
+    private void handleBeijing_Beef() {
+        selectedItems.add(400 + qEntree);
+    }
+
+    private void handleBroccoli_Beef() {
+        selectedItems.add(1300 + qEntree);
+    }
+
+    private void handleHoney_Sesame_Chicken() {
+        selectedItems.add(2200 + qEntree);
+    }
+
+    private void handleKung_Pao_Chicken() {
+        selectedItems.add(1100 + qEntree);
+    }
+
+    private void handleBlack_Pepper_Chicken() {
+        selectedItems.add(1200 + qEntree);
+    }
+
+    private void handleOrange_Chicken() {
+        selectedItems.add(100 + qEntree);
+    }
+
+    private void handleHot_Orange_Chicken() {
+        selectedItems.add(700 + qEntree);
+    }
+
+    private void handleString_Bean_Chicken_Breast() {
+        selectedItems.add(2300 + qEntree);
+    }
+
+    private void handleSuper_Green2() {
+        selectedItems.add(1400 + qEntree);
+    }
+
+    private void switchScene(String fileName){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fileName));
+            Stage stage = (Stage) CancelButton.getScene().getWindow();
+            double currWidth = stage.getScene().getWidth();            
+            double currHeight = stage.getScene().getHeight();
+            Scene scene = new Scene(root, currWidth, currHeight);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Failed to switch scene: " + fileName);
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    private void closeWindow() { 
+        Stage stage = (Stage) CancelButton.getScene().getWindow();
+        stage.close();
+    }
+}
