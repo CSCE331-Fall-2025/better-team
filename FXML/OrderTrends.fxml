@@ -62,8 +62,8 @@
       <Text layoutX="79.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X-Axis" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="155.0" />
       <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" layoutX="85.0" layoutY="340.0" prefHeight="40.0" prefWidth="159.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="90.0">
         <buttons>
-            <Button fx:id="priceButton" mnemonicParsing="false" text="Price" />
-          <Button fx:id="quantityButton" mnemonicParsing="false" text="Quantity" />
+            <Button fx:id="dishButton" mnemonicParsing="false" text="Dish" />
+          <Button fx:id="inventoryButton" mnemonicParsing="false" text="Inventory" />
         </buttons>
       </ButtonBar>
       <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" layoutX="344.0" layoutY="347.0" prefHeight="40.0" prefWidth="56.0" translateX="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="200.0">

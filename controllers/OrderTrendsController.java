@@ -1,24 +1,21 @@
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-// import javafx.scene.control.TextArea;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
+import javafx.scene.chart.*;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
+import javafx.scene.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 
 public class OrderTrendsController {
@@ -31,6 +28,12 @@ public class OrderTrendsController {
 
     @FXML
     private Button employeeDataButton;
+
+    @FXML
+    private Button dishButton;
+
+    @FXML
+    private Button inventoryButton;
     
     @FXML
     private TableView<String> dishTable;
@@ -44,15 +47,26 @@ public class OrderTrendsController {
     @FXML
     private NumberAxis yAxis;
     
+    @FXML
+    private DatePicker dateStart;
+    
+    @FXML
+    private DatePicker dateEnd;
+
+    @FXML
+    private Label time;
+    
     
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database"; //database location
+
+    private boolean displayDishView = true;
     
     // This method runs automatically when the FXML loads
     @FXML
     public void initialize() {
         // Set up what happens when button is clicked
-        runQuery();
-        closeButton.setOnAction(event -> closeWindow());
+        dishQuery();
+        closeButton.setOnAction(event -> switchScene("/FXML/Login.fxml"));
         restockButton.setOnAction(event -> switchScene("/FXML/Inventory.fxml"));
         employeeDataButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
 
@@ -72,10 +86,28 @@ public class OrderTrendsController {
                 chartQuery();
             }
         );
+
+        dateStart.setValue(LocalDate.of(2024,9,22));
+        dateEnd.setValue(LocalDate.of(2024,9,23));
+
+        dateStart.setOnAction(event -> chartQuery());
+        dateEnd.setOnAction(event -> chartQuery());
+
+        dishButton.setOnAction(event -> dishQuery());
+        inventoryButton.setOnAction(event -> inventoryQuery());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm:ss a");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            String currTime = LocalDateTime.now().format(formatter);
+            time.setText(currTime);
+        }));
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
     
     // Your method to run the database query
-    private void runQuery() {
+    private void dishQuery() {
 
         try {
             // Get database creditials
@@ -100,6 +132,48 @@ public class OrderTrendsController {
             }
 
             dishTable.setItems(dishList);
+            dishColumn.setText("Dish");
+            displayDishView = true;
+
+            // Close connection
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (Exception e) {
+            // resultArea.setText("Error connecting to database:\n" + e.getMessage());
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    private void inventoryQuery() {
+
+        try {
+            // Get database creditials
+            dbSetup my = new dbSetup();
+ 
+            // Build the connection
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, my.user, my.pswd);
+
+            // Create statement
+            Statement stmt = conn.createStatement();
+
+            // Run sql query
+            String sqlStatement = "SELECT item FROM inventory";
+            ResultSet rs = stmt.executeQuery(sqlStatement);
+
+            ObservableList<String> inventoryList = FXCollections.observableArrayList();
+
+            // Output result to table
+            while (rs.next()){
+                inventoryList.add(rs.getString("item"));
+            }
+
+            dishTable.setItems(inventoryList);
+            dishColumn.setText("Inventory");
+            displayDishView = false;
 
             // Close connection
             rs.close();
@@ -115,18 +189,26 @@ public class OrderTrendsController {
 
     private void chartQuery() {
 
-        ObservableList<String> selectedDishes = dishTable.getSelectionModel().getSelectedItems();
+        ObservableList<String> selectedItems = dishTable.getSelectionModel().getSelectedItems();
+
+        LocalDate startDate = dateStart.getValue();
+        LocalDate endDate = dateEnd.getValue();
 
         dishChart.getData().clear();
+
+        if(startDate == null || endDate == null || selectedItems.isEmpty()){
+            yAxis.setAutoRanging(true);
+            return;
+        }
 
         List<XYChart.Series<String, Number>> allSeries = new ArrayList<>();
 
         double minY = Double.MAX_VALUE;
         double maxY = Double.MIN_VALUE;
 
-        for(String dishName : selectedDishes) {
+        for(String itemName : selectedItems) {
             XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(dishName);
+            series.setName(itemName);
 
             try {
                 dbSetup my = new dbSetup();
@@ -134,20 +216,34 @@ public class OrderTrendsController {
                 Class.forName("org.postgresql.Driver");
                 Connection conn = DriverManager.getConnection(DB_URL, my.user, my.pswd);
 
-                Statement stmt = conn.createStatement();
+                // Statement stmt = conn.createStatement();
 
-                String sqlStatement = "SELECT dish.name, COUNT(*) FROM transactiondish JOIN dish on transactiondish.FK_dish = dish.dish_id GROUP BY dish.name HAVING dish.name=?;";
+                String sqlStatement;
+
+                if(displayDishView){
+                    sqlStatement = "SELECT DATE(t.time) as sale_date, COUNT(*) as count FROM transactiondish td JOIN dish d ON td.FK_dish = d.dish_id JOIN transaction t ON td.FK_transaction = t.transaction_id WHERE d.name = ? AND DATE(t.time) >= ? AND DATE(t.time) <= ? GROUP BY sale_date ORDER BY sale_date;";
+                }
+                else{
+                    sqlStatement = "SELECT DATE(t.time) AS sale_date, COUNT(t.transaction_id) AS count FROM transaction t JOIN transactiondish td ON t.transaction_id = td.fk_transaction JOIN dish d ON td.fk_dish = d.dish_id JOIN dishinventory di ON d.dish_id = di.fk_dish JOIN inventory i ON di.fk_inventory = i.inventory_id WHERE i.item = ? AND DATE(t.time) >= ? AND DATE(t.time) <= ? GROUP BY sale_date ORDER BY sale_date;";
+                }
+
                 PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
-                pstmt.setString(1, dishName);
+                pstmt.setString(1, itemName);
+                pstmt.setDate(2, java.sql.Date.valueOf(startDate));
+                pstmt.setDate(3, java.sql.Date.valueOf(endDate));
+
+                System.out.println(sqlStatement);
+
                 ResultSet rs = pstmt.executeQuery();
                 boolean hasData = false;
 
                 while(rs.next()){
                     hasData = true;
-                    String name = rs.getString("name");
+                    // String name = rs.getString("name");
+                    String saleDate = rs.getDate("sale_date").toString();
                     int count = rs.getInt("count");
 
-                    series.getData().add(new XYChart.Data<>(name,count));
+                    series.getData().add(new XYChart.Data<>(saleDate,count));
 
                     minY = Math.min(minY, count);
                     maxY = Math.max(maxY, count);
@@ -161,7 +257,7 @@ public class OrderTrendsController {
 
                 // Close connection
                 rs.close();
-                stmt.close();
+                pstmt.close();
                 conn.close();
 
             } catch (Exception e) {
@@ -186,10 +282,10 @@ public class OrderTrendsController {
         }
     }
 
-    private void closeWindow() { 
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
+    // private void closeWindow() { 
+    //     Stage stage = (Stage) closeButton.getScene().getWindow();
+    //     stage.close();
+    // }
 
     private void switchScene(String fileName){
         try {
