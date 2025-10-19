@@ -1,5 +1,3 @@
-package controllers;
-
 import java.sql.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +9,6 @@ import javafx.stage.Stage;
 
 import javafx.collections.ObservableList;
 
-import app.dbSetup;
 
 public class LoginController {
 

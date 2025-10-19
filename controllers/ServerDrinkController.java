@@ -1,5 +1,3 @@
-package controllers;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -17,19 +15,30 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
-public class ServerAppController {
-
-    /*public void setSelectedItems(List<Integer> selectedItems) {
+public class ServerDrinkController {
+    /*
+    public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
     }*/
 
-    //apps
+    //drinks
     @FXML
-    private Button ChickenRoll;
+    private Button Coke;
     @FXML
-    private Button VegRoll;
+    private Button Sprite;
     @FXML
-    private Button Rangoon;
+    private Button DrPepper;
+    @FXML
+    private Button SweetTea;
+
+    @FXML
+    private Button MangoGuava;
+    @FXML
+    private Button PomPin;
+    @FXML
+    private Button WatMan;
+    @FXML
+    private Button PeachLychee;
 
 
     //bottom buttons
@@ -44,8 +53,6 @@ public class ServerAppController {
     
     private List<Integer> selectedItems = new ArrayList<>();;
 
-    private int qApp;
-
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
     }
@@ -54,25 +61,50 @@ public class ServerAppController {
     @FXML
     public void initialize() {
         // Set up what happens when button is clicked
-        ChickenRoll.setOnAction(e -> handleChickenRoll());
-        VegRoll.setOnAction(e -> handleVegRoll());
-        Rangoon.setOnAction(e -> handleRangoon());
+        Coke.setOnAction(e -> handleCoke());
+        Sprite.setOnAction(e -> handleSprite());
+        DrPepper.setOnAction(e -> handleDrPepper());
+        SweetTea.setOnAction(e -> handleSweetTea());
+        MangoGuava.setOnAction(e -> handleMangoGuava());
+        PomPin.setOnAction(e -> handlePomPin());
+        WatMan.setOnAction(e -> handleWatMan());
+        PeachLychee.setOnAction(e -> handlePeachLychee());
 
-        CancelButton.setOnAction(event -> switchScene("FXML/ServerOrder.fxml"));
+        CancelButton.setOnAction(event -> switchScene("/FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
     }
     
     // Your method to run the database query
-    private void handleChickenRoll() {
-        selectedItems.add(2100 + qApp);
+    private void handleCoke() {
+        selectedItems.add(601);
     }
 
-    private void handleVegRoll() {
-        selectedItems.add(2000 + qApp);
+    private void handleSprite() {
+        selectedItems.add(201);
     }
 
-    private void handleRangoon() {
-        selectedItems.add(1900 + qApp);
+    private void handleDrPepper() {
+        selectedItems.add(801);
+    }
+
+    private void handleSweetTea() {
+        selectedItems.add(2501);
+    }
+
+    private void handleMangoGuava() {
+        selectedItems.add(1501);
+    }
+
+    private void handlePomPin() {
+        selectedItems.add(1601);
+    }
+
+    private void handleWatMan() {
+        selectedItems.add(1701);
+    }
+
+    private void handlePeachLychee() {
+        selectedItems.add(1801);
     }
 
     @FXML

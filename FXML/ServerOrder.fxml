@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderController">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OrderController">
     <top>
         <AnchorPane fx:id="topBar" prefHeight="60.0" style="-fx-background-color: #BB2719;">
             <HBox fx:id="topHBox" alignment="CENTER" spacing="200.0">

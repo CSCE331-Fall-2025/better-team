@@ -1,5 +1,3 @@
-package controllers;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 
-import app.dbSetup;
 
 public class OrderTrendsController {
     
