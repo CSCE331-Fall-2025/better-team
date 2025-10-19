@@ -1,3 +1,5 @@
+package controllers;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -16,10 +18,10 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class ServerDefaultController {
-
+    /*
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
-    }
+    }*/
 
     //sides
     @FXML
@@ -67,10 +69,12 @@ public class ServerDefaultController {
     //stuff
     
     private List<Integer> selectedItems = new ArrayList<>();;
-    private int qEntree; 
-    private int qSide; 
-    private int qApp;
+    private int qty = 1;
     
+    public void setqty(int qty) {
+        this.qty = qty;
+    }   
+
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
     }
@@ -95,17 +99,17 @@ public class ServerDefaultController {
         String_Bean_Chicken_Breast.setOnAction(event -> handleString_Bean_Chicken_Breast());
         Super_Green2.setOnAction(event -> handleSuper_Green2());
 
-        CancelButton.setOnAction(event -> switchScene("ServerOrder.fxml"));
+        CancelButton.setOnAction(event -> switchScene("/FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
     }
 
     @FXML
     private void handleAddOrderButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ServerCheckout.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ServerCheckout.fxml"));
             Parent root = loader.load();
 
-            checkoutController checkoutController = loader.getController();
+            CheckoutController checkoutController = loader.getController();
 
             checkoutController.setSelectedItems(selectedItems);
 
@@ -118,60 +122,60 @@ public class ServerDefaultController {
     }
 
     private void handleWhite_Steamed_Rice(){
-        selectedItems.add(900 + qSide);
+        selectedItems.add(900 + qty);
     }
 
     private void handleFried_Rice() {
-        selectedItems.add(300 + qSide);
+        selectedItems.add(300 + qty);
     }
 
     private void handleChow_Mein() {
-        selectedItems.add(500 + qSide);
+        selectedItems.add(500 + qty);
     }
 
     private void handleSuper_Green() {
-        selectedItems.add(1400 + qSide);
+        selectedItems.add(1400 + qty);
     }
 
     //entree
     private void handleHoney_Walnut_Shrimp() {
-        selectedItems.add(1000 + qEntree);
+        selectedItems.add(1000 + qty);
     }
 
     private void handleBeijing_Beef() {
-        selectedItems.add(400 + qEntree);
+        selectedItems.add(400 + qty);
     }
 
     private void handleBroccoli_Beef() {
-        selectedItems.add(1300 + qEntree);
+        selectedItems.add(1300 + qty);
     }
 
     private void handleHoney_Sesame_Chicken() {
-        selectedItems.add(2200 + qEntree);
+        selectedItems.add(2200 + qty);
     }
 
     private void handleKung_Pao_Chicken() {
-        selectedItems.add(1100 + qEntree);
+        selectedItems.add(1100 + qty);
     }
 
     private void handleBlack_Pepper_Chicken() {
-        selectedItems.add(1200 + qEntree);
+        selectedItems.add(1200 + qty);
     }
 
     private void handleOrange_Chicken() {
-        selectedItems.add(100 + qEntree);
+        selectedItems.add(100 + qty);
     }
 
     private void handleHot_Orange_Chicken() {
-        selectedItems.add(700 + qEntree);
+        selectedItems.add(700 + qty);
     }
 
     private void handleString_Bean_Chicken_Breast() {
-        selectedItems.add(2300 + qEntree);
+        selectedItems.add(2300 + qty);
     }
 
     private void handleSuper_Green2() {
-        selectedItems.add(1400 + qEntree);
+        selectedItems.add(1400 + qty);
     }
 
     private void switchScene(String fileName){
