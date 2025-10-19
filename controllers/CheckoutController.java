@@ -1,5 +1,3 @@
-package controllers;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,7 +11,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-import app.dbSetup;
 
 public class CheckoutController {
 

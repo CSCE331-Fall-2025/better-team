@@ -1,5 +1,3 @@
-package controllers;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,10 +8,6 @@ public class ManagerEmployeeDataModel {
 
     // ---- JDBC connection config  ----
     private static final String URL  = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
-    private static final String USER = "better_team";
-    private static final String PASS = "12347";
-
-
 
 	// Employee object to create instances of from the queyr results
     public static class Employee {
@@ -51,8 +45,9 @@ public class ManagerEmployeeDataModel {
         ObservableList<Employee> out = FXCollections.observableArrayList();
 
         final String sql = "SELECT employee_id, name FROM employee ORDER BY employee_id";
+		dbSetup db = new dbSetup();
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+        try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -81,7 +76,9 @@ public class ManagerEmployeeDataModel {
             "WHERE t.fk_employee = ? " +
             "ORDER BY t.\"time\" DESC";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+		dbSetup db = new dbSetup();
+
+        try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, employeeId);
