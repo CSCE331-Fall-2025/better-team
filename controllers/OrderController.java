@@ -5,11 +5,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class orderController {
+public class OrderController {
 
 
     private static final List<Integer> selectedItems = new ArrayList<>();
@@ -37,27 +38,32 @@ public class orderController {
 
         checkoutButton.setOnAction(this::handleCheckout);
 
-        logoutButton.setOnAction(this::handleDefault);
+        logoutButton.setOnAction(this::handlelogout);
     }
 
     @FXML
     private void handleDefault(ActionEvent event) {
-        switchSceneWithList(event, "serverDefault.fxml");
+        switchSceneWithList(event, "/FXML/ServerDefault.fxml");
     }
 
     @FXML
     private void handleApp(ActionEvent event) {
-        switchSceneWithList(event, "serverApp.fxml");
+        switchSceneWithList(event, "/FXML/ServerApp.fxml");
     }
 
     @FXML
     private void handleDrink(ActionEvent event) {
-        switchSceneWithList(event, "serverDrink.fxml");
+        switchSceneWithList(event, "/FXML/ServerDrink.fxml");
     }
 
     @FXML
     private void handleCheckout(ActionEvent event) {
-        switchSceneWithList(event, "serverCheckout.fxml");
+        switchSceneWithList(event, "/FXML/ServerCheckout.fxml");
+    }
+
+    @FXML
+    private void handlelogout(ActionEvent event) {
+        switchSceneWithList(event, "/FXML/Login.fxml");
     }
 
     /**
@@ -74,17 +80,17 @@ public class orderController {
             Parent root = loader.load();
 
             Object ctrl = loader.getController();
-            if (ctrl instanceof serverDefaultController) {
-                serverDefaultController defaultCtrl = (serverDefaultController) ctrl;
+            if (ctrl instanceof ServerDefaultController) {
+                ServerDefaultController defaultCtrl = (ServerDefaultController) ctrl;
                 defaultCtrl.setSelectedItems(selectedItems);
-            } else if (ctrl instanceof serverAppController) {
-                serverAppController appCtrl = (serverAppController) ctrl;
+            } else if (ctrl instanceof ServerAppController) {
+                ServerAppController appCtrl = (ServerAppController) ctrl;
                 appCtrl.setSelectedItems(selectedItems);
-            } else if (ctrl instanceof serverDrinkController) {
-                serverDrinkController drinkCtrl = (serverDrinkController) ctrl;
+            } else if (ctrl instanceof ServerDrinkController) {
+                ServerDrinkController drinkCtrl = (ServerDrinkController) ctrl;
                 drinkCtrl.setSelectedItems(selectedItems);
-            } else if (ctrl instanceof checkoutController) {
-                checkoutController checkoutCtrl = (checkoutController) ctrl;
+            } else if (ctrl instanceof CheckoutController) {
+                CheckoutController checkoutCtrl = (CheckoutController) ctrl;
                 checkoutCtrl.setSelectedItems(selectedItems);
             }
 
