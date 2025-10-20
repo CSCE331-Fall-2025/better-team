@@ -5,10 +5,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+* Handles all database operations (SQL queries) related to inventory items.
+* Serves as the Data Access Object (DAO) layer for inventory management.
+*/
 public class InventoryModel {
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
 
+    /**
+    * Retrieves all inventory items from the database.
+    *
+    * @return a list of {@link InventoryController.Item} representing the inventory
+    * @throws RuntimeException if there is a database access error
+    */
     public List<InventoryController.Item> getInventoryItems() {
         List<InventoryController.Item> items = new ArrayList<>();
         try {
