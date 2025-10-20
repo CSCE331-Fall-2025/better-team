@@ -4,12 +4,17 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javafx.stage.Stage;
 
@@ -61,6 +66,9 @@ public class ServerDefaultController {
     
     @FXML
     private Button AddOrderButton; //match the fx:id value from Scene Builder
+	
+	@FXML
+	private ButtonBar EntreeBar;
     
     //stuff
     
@@ -179,12 +187,12 @@ public class ServerDefaultController {
     public void addNewButton(String text, int id) {/**/
         Button newButton = new Button(text);
         newButton.setOnAction(e->handleAny(id));
-        ButtonBar.setButtonData(newButton, ButtonData.LEFT);
+		ButtonBar.setButtonData(newButton, ButtonBar.ButtonData.LEFT);
         EntreeBar.getButtons().add(newButton);
     }
     
     public void handleAny(int x){
-        selectedItems.add(x*100 + qEntree);
+        selectedItems.add(x*100 + qty);
     }
 
     private void LoadNewButtons(){
