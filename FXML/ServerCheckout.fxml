@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CheckoutController">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CheckoutController">
     <top>
         <AnchorPane fx:id="topBar" prefHeight="60.0" style="-fx-background-color: #BB2719;">
             <HBox fx:id="topHBox" alignment="CENTER" spacing="50">
