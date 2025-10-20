@@ -368,6 +368,7 @@ public class InventoryController {
             loadInventory();
             loadItemsForComboBox();
             loadRenameItemsForComboBox();
+
         } catch (Exception e) { e.printStackTrace(); showAlert("Error adding inventory: " + e.getMessage()); }
     }
 
@@ -393,7 +394,21 @@ public class InventoryController {
             ps.executeUpdate();
 
             ps.close();
-            conn.close();
+            //conn.close();
+            
+            //added by alex for add button functionality
+            /*
+            int lastDish = 0;
+            String sql2 = "SELECT dish_id FROM dish ORDER BY dish_id DESC LIMIT 1";
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+            ps2.setInt(1, lastDish);
+            ps2.executeUpdate();
+            ps2.close();
+            */
+
+
+            conn.close();//end
+            
 
             showAlert("Dish added successfully!");
             addDishNameField.clear();
@@ -401,6 +416,12 @@ public class InventoryController {
             loadDishes();
             loadPriceItemsForComboBox();
             loadRenameDishesForComboBox();
+            /*
+            ServerDefaultController controller = new ServerDefaultController();
+            controller.addNewButton(name, lastDish);//addNewButton to add item to serverDefault
+            */
+            
+
         } catch (Exception e) { e.printStackTrace(); showAlert("Error adding dish: " + e.getMessage()); }
     }
 
