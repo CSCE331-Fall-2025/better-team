@@ -57,9 +57,9 @@
         <!-- NAV -->
         <VBox alignment="CENTER" spacing="10.0">
           <children>
-            <Button fx:id="restockNavButton"   text="Restock"       onAction="#handleNavRestock"/>
-            <Button fx:id="orderNavButton"     text="Order Trends"  onAction="#handleNavOrder"/>
-            <Button fx:id="employeeNavButton"  text="Employee Data" onAction="#handleNavEmployee"/>
+            <Button fx:id="inventoryNavButton" 		text="Inventory"/>
+            <Button fx:id="orderTrendsNavButton"	text="Order Trends"/>
+            <Button fx:id="employeeDataNavButton"  	text="Employee Data"/>
           </children>
         </VBox>
 
