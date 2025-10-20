@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-import app.dbSetup;
-
 public class CheckoutController {
 
     @FXML private TextArea orderTextArea;
