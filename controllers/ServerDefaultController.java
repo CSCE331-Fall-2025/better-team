@@ -196,7 +196,7 @@ public class ServerDefaultController {
     }
 
     private void LoadNewButtons(){
-        int lastNormalDish = 44;//42
+        int lastNormalDish = 46;//42
         int lastDish = 41;//use connection to get last row
         try {
             dbSetup my = new dbSetup();
