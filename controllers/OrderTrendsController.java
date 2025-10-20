@@ -36,10 +36,28 @@ public class OrderTrendsController {
     private Button inventoryButton;
     
     @FXML
+    private Button xReportButton;
+
+    @FXML
+    private Button zReportButton;
+    
+    @FXML
     private TableView<String> dishTable;
 
     @FXML
     private TableColumn<String, String> dishColumn;
+
+    @FXML
+    private TableView<ReportData> reportTable;
+    
+    @FXML
+    private TableColumn<ReportData, String> timeCol;
+
+    @FXML
+    private TableColumn<ReportData, String> transactionCol;
+
+    @FXML
+    private TableColumn<ReportData, String> salesCol;
     
     @FXML
     private LineChart<String, Number> dishChart;
@@ -74,6 +92,18 @@ public class OrderTrendsController {
         dishColumn.setCellValueFactory(cellData -> 
             new javafx.beans.property.SimpleStringProperty(cellData.getValue())
         );       
+
+        timeCol.setCellValueFactory(cellData ->
+            new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTime())
+        );
+
+        transactionCol.setCellValueFactory(cellData ->
+            new javafx.beans.property.SimpleStringProperty(String.valueOf(cellData.getValue().getTransactions()))
+        );
+
+        salesCol.setCellValueFactory(cellData ->
+            new javafx.beans.property.SimpleStringProperty(String.format("$%.2f",cellData.getValue().getSales()))
+        );
         
         // allow multiple cells to be selected
         dishTable.getSelectionModel().setSelectionMode(
@@ -95,6 +125,9 @@ public class OrderTrendsController {
 
         dishButton.setOnAction(event -> dishQuery());
         inventoryButton.setOnAction(event -> inventoryQuery());
+
+        xReportButton.setOnAction(event -> reportQuery(false));
+        zReportButton.setOnAction(event -> reportQuery(true));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm:ss a");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -232,8 +265,6 @@ public class OrderTrendsController {
                 pstmt.setDate(2, java.sql.Date.valueOf(startDate));
                 pstmt.setDate(3, java.sql.Date.valueOf(endDate));
 
-                System.out.println(sqlStatement);
-
                 ResultSet rs = pstmt.executeQuery();
                 boolean hasData = false;
 
@@ -282,10 +313,73 @@ public class OrderTrendsController {
         }
     }
 
-    // private void closeWindow() { 
-    //     Stage stage = (Stage) closeButton.getScene().getWindow();
-    //     stage.close();
-    // }
+    private void reportQuery(boolean isZ){
+
+        LocalDate reportDate = LocalDate.now();
+
+        try {
+            // Get database creditials
+            dbSetup my = new dbSetup();
+ 
+            // Build the connection
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, my.user, my.pswd);
+            ObservableList<ReportData> reportDataList = FXCollections.observableArrayList();
+            // Run sql query
+            String sqlStatement;
+
+            if(!isZ){
+                sqlStatement = "SELECT EXTRACT(HOUR FROM t.time) AS hour_of_day, COUNT(t.transaction_id) as total_transactions, SUM(t.cost) AS total_sales FROM transaction t WHERE DATE(t.time) = ? GROUP BY hour_of_day ORDER BY hour_of_day;";
+                
+                PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+                pstmt.setDate(1, java.sql.Date.valueOf(reportDate));
+                ResultSet rs = pstmt.executeQuery();
+
+                // Output result to table
+                while (rs.next()){
+                    int hour = rs.getInt("hour_of_day");
+                    String hourRange = String.format("%02d:00 - %02d:59", hour, hour);
+                    int transactions = rs.getInt("total_transactions");
+                    double sales = rs.getDouble("total_sales");
+
+                    reportDataList.add(new ReportData(hourRange, transactions, sales));
+                }
+
+                // Close connection
+                rs.close();
+                pstmt.close();
+            }
+            else{
+                sqlStatement = "SELECT COUNT(t.transaction_id) AS total_transactions, SUM(t.cost) AS total_sales FROM transaction t WHERE DATE(t.time) = ?;";
+            
+                PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+                pstmt.setDate(1, java.sql.Date.valueOf(reportDate));
+                ResultSet rs = pstmt.executeQuery();
+
+                // Output result to table
+                while (rs.next()){
+                    int transactions = rs.getInt("total_transactions");
+                    double sales = rs.getDouble("total_sales");
+
+                    reportDataList.add(new ReportData(reportDate.toString(), transactions, sales));
+                }
+
+                // Close connection
+                rs.close();
+                pstmt.close();
+            }
+
+
+            reportTable.setItems(reportDataList); 
+
+            conn.close();
+
+        } catch (Exception e) {
+            // resultArea.setText("Error connecting to database:\n" + e.getMessage());
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
 
     private void switchScene(String fileName){
         try {
@@ -304,4 +398,21 @@ public class OrderTrendsController {
         }
         
     }
+
+    public static class ReportData{
+        private final String time;
+        private final int transactions;
+        private final double sales;
+
+        public ReportData(String time, int transactions, double sales){
+            this.time = time;
+            this.transactions = transactions;
+            this.sales = sales;
+        }
+
+        public String getTime() {return time;}
+        public int getTransactions() {return transactions;}
+        public double getSales() {return sales;}
+    }
 }
+

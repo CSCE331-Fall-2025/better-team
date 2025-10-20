@@ -27,7 +27,7 @@
                </font></Text>
             <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                <image>
-                  <Image url="@../images/panda.png"/>
+                  <Image url="@../images/panda.png" />
                </image>
             </ImageView>
             <StackPane layoutX="211.0" layoutY="-6.0" prefHeight="60.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-6.0">
@@ -46,7 +46,7 @@
           <TableColumn fx:id="dishColumn" prefWidth="300.0" resizable="false" text="Inventory" />
         </columns>
       </TableView>
-      <LineChart fx:id="dishChart" layoutX="50.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="75.0">
+      <LineChart fx:id="dishChart" layoutX="50.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="75.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -54,7 +54,7 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
-      <StackPane layoutX="165.33333333333334" layoutY="259.0" prefHeight="150.0" prefWidth="435.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="0.0">
+      <StackPane layoutX="165.33333333333334" layoutY="259.0" prefHeight="150.0" prefWidth="435.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="125.0">
          <children>
             <Text fx:id="Y_Axis_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Y-Axis: Enter Times" />
          </children>
@@ -66,7 +66,14 @@
           <Button fx:id="inventoryButton" mnemonicParsing="false" text="Inventory" />
         </buttons>
       </ButtonBar>
-      <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" layoutX="344.0" layoutY="347.0" prefHeight="40.0" prefWidth="56.0" translateX="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="200.0">
+      <TableView fx:id="reportTable" layoutX="390.0" layoutY="209.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="235.0">
+        <columns>
+          <TableColumn fx:id="timeCol" prefWidth="110.0" text="Time" />
+          <TableColumn fx:id="transactionCol" prefWidth="110.0" text="Transactions" />
+            <TableColumn fx:id="salesCol" text="Sales" />
+        </columns>
+      </TableView>
+      <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" layoutX="344.0" layoutY="347.0" prefHeight="40.0" prefWidth="56.0" translateX="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="300.0">
          <buttons>
             <DatePicker fx:id="dateStart" minWidth="0.0" prefHeight="25.0" prefWidth="9999.0" />
             <DatePicker fx:id="dateEnd" minWidth="0.0" prefHeight="25.0" prefWidth="9999.0" />
@@ -83,6 +90,8 @@
             <Button fx:id="employeeDataButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" text="Employee Data" />
          </children>
       </VBox>
+      <Button layoutX="449.0" layoutY="314.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="X-Report" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="200.0" fx:id="xReportButton" />
+      <Button fx:id="zReportButton" layoutX="449.0" layoutY="347.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Z-Report" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="110.0" />
       <Button fx:id="closeButton" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" text="Log Out" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
    </children>
 </AnchorPane>
