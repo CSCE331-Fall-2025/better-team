@@ -25,6 +25,7 @@ public class ManagerEmployeeDataController {
 
     // Nav buttons on the right border to navigate to other manager pages
     @FXML private Button inventoryNavButton, orderTrendsNavButton, employeeDataNavButton;
+	@FXML private Button hireButton, fireButton, updateButton;
 
 	// Init the model for this MVC component
     private final ManagerEmployeeDataModel model = new ManagerEmployeeDataModel();
@@ -39,6 +40,11 @@ public class ManagerEmployeeDataController {
 		inventoryNavButton.setOnAction(event -> switchScene("/FXML/Inventory.fxml")); 
 		orderTrendsNavButton.setOnAction(event -> switchScene("/FXML/OrderTrends.fxml"));
 		employeeDataNavButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
+
+		// Hire, fire, manage employee buttons via fxml dialogs
+		hireButton.setOnAction(e -> onHire());
+		fireButton.setOnAction(e -> onFire());
+		updateButton.setOnAction(e -> onUpdate());
 
         // Wire columns to getters (PropertyValueFactory looks for getXxx())
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     // getId()
@@ -85,5 +91,125 @@ public class ManagerEmployeeDataController {
         	e.printStackTrace();
     	}
 	}
+	// --- Hire new employee ---
+	@FXML
+	private void onHire() {
+		TextInputDialog nameDialog = new TextInputDialog();
+		nameDialog.setTitle("Hire Employee");
+		nameDialog.setHeaderText("Add New Employee");
+		nameDialog.setContentText("Enter employee name:");
+		var nameOpt = nameDialog.showAndWait();
+		if (nameOpt.isEmpty() || nameOpt.get().trim().isEmpty()) return;
+
+		TextInputDialog managerDialog = new TextInputDialog("false");
+		managerDialog.setTitle("Hire Employee");
+		managerDialog.setHeaderText("Is this employee a manager? (true/false)");
+		managerDialog.setContentText("Manager status:");
+		var managerOpt = managerDialog.showAndWait();
+		if (managerOpt.isEmpty()) return;
+
+		boolean isManager = Boolean.parseBoolean(managerOpt.get().trim());
+
+		TextInputDialog wageDialog = new TextInputDialog("10");
+		wageDialog.setTitle("Hire Employee");
+		wageDialog.setHeaderText("Set wage for " + nameOpt.get());
+		wageDialog.setContentText("Enter wage:");
+		var wageOpt = wageDialog.showAndWait();
+		if (wageOpt.isEmpty()) return;
+
+		try {
+			double wage = Double.parseDouble(wageOpt.get().trim());
+			model.addEmployee(nameOpt.get().trim(), isManager, wage);
+			refreshEmployeeList();
+		} catch (NumberFormatException e) {
+			showAlert(Alert.AlertType.ERROR, "Invalid Input", "Wage must be a valid number.");
+		}
+	}
+
+	
+
+	// --- Fire selected employee ---
+	@FXML
+	private void onFire() {
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Fire Employee");
+		dialog.setHeaderText("Remove Employee");
+		dialog.setContentText("Enter employee ID or name:");
+		dialog.showAndWait().ifPresent(input -> {
+			ManagerEmployeeDataModel.Employee emp = model.getEmployeeByIdOrName(input.trim());
+			if (emp == null) {
+				showAlert(Alert.AlertType.WARNING, "Not Found", "No employee found with that name or ID.");
+				return;
+			}
+			Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+			confirm.setTitle("Confirm Fire");
+			confirm.setHeaderText("Fire " + emp.getName() + "?");
+			confirm.showAndWait().ifPresent(resp -> {
+				if (resp == ButtonType.OK) {
+					model.removeEmployee(emp.getId());
+					refreshEmployeeList();
+				}
+			});
+		});
+	}
+
+	// --- Update selected employee name ---
+	@FXML
+	private void onUpdate() {
+		TextInputDialog searchDialog = new TextInputDialog();
+		searchDialog.setTitle("Update Employee");
+		searchDialog.setHeaderText("Enter ID or name of the employee to update:");
+		searchDialog.setContentText("Employee ID or Name:");
+		var searchOpt = searchDialog.showAndWait();
+		if (searchOpt.isEmpty()) return;
+
+		ManagerEmployeeDataModel.Employee emp = model.getEmployeeByIdOrName(searchOpt.get().trim());
+		if (emp == null) {
+			showAlert(Alert.AlertType.WARNING, "Not Found", "No employee found with that ID or name.");
+			return;
+		}
+
+		TextInputDialog nameDialog = new TextInputDialog(emp.getName());
+		nameDialog.setTitle("Update Employee");
+		nameDialog.setHeaderText("Edit Employee Name");
+		nameDialog.setContentText("New name:");
+		var nameOpt = nameDialog.showAndWait();
+		if (nameOpt.isEmpty()) return;
+		String newName = nameOpt.get().trim();
+
+		TextInputDialog managerDialog = new TextInputDialog("false");
+		managerDialog.setTitle("Update Employee");
+		managerDialog.setHeaderText("Set manager status (true/false)");
+		managerDialog.setContentText("Is Manager:");
+		boolean isManager = Boolean.parseBoolean(managerDialog.showAndWait().orElse("false").trim());
+
+		TextInputDialog wageDialog = new TextInputDialog("10");
+		wageDialog.setTitle("Update Employee");
+		wageDialog.setHeaderText("Set new wage");
+		wageDialog.setContentText("Wage:");
+		try {
+			double wage = Double.parseDouble(wageDialog.showAndWait().orElse("10").trim());
+			model.updateEmployee(emp.getId(), newName, isManager, wage);
+			refreshEmployeeList();
+		} catch (NumberFormatException e) {
+			showAlert(Alert.AlertType.ERROR, "Invalid Input", "Wage must be a valid number.");
+		}
+	}
+
+
+
+	// --- Small utility helpers ---
+	private void refreshEmployeeList() {
+		employeeListTable.setItems(model.getAllEmployees());
+	}
+
+	private void showAlert(Alert.AlertType type, String title, String msg) {
+		Alert a = new Alert(type);
+		a.setTitle(title);
+		a.setHeaderText(null);
+		a.setContentText(msg);
+		a.showAndWait();
+	}
+
 }
 

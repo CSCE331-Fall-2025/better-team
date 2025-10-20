@@ -97,6 +97,66 @@ public class ManagerEmployeeDataModel {
 
         return out;
     }
+	// --- Add new employee ---
+	public void addEmployee(String name, boolean isManager, double wage) {
+		final String sql = "INSERT INTO employee (name, ismanager, wage) VALUES (?, ?, ?)";
+		dbSetup db = new dbSetup();
+		try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, name);
+			ps.setBoolean(2, isManager);
+			ps.setDouble(3, wage);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// --- Remove employee by ID ---
+	public void removeEmployee(int id) {
+		final String sql = "DELETE FROM employee WHERE employee_id = ?";
+		dbSetup db = new dbSetup();
+		try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// --- Update employee name ---
+	public void updateEmployee(int id, String newName, boolean isManager, double wage) {
+		final String sql = "UPDATE employee SET name = ?, ismanager = ?, wage = ? WHERE employee_id = ?";
+		dbSetup db = new dbSetup();
+		try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, newName);
+			ps.setBoolean(2, isManager);
+			ps.setDouble(3, wage);
+			ps.setInt(4, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ManagerEmployeeDataModel.Employee getEmployeeByIdOrName(String input) {
+		final String sql = "SELECT employee_id, name FROM employee WHERE employee_id::text = ? OR LOWER(name) = LOWER(?)";
+		dbSetup db = new dbSetup();
+		try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, input);
+			ps.setString(2, input);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new Employee(rs.getInt("employee_id"), rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
 
 
