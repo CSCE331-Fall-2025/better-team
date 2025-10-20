@@ -24,9 +24,12 @@ public class CheckoutController {
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
     private dbSetup db = new dbSetup();
 
+    private double total = 0;
+
     @FXML
     public void initialize(){
-
+        
+        orderTextArea.setEditable(false);
         notesTextArea.setEditable(false);
         notesTextArea.setPromptText("Click 'Add Notes' to write a note...");
 
@@ -60,7 +63,7 @@ public class CheckoutController {
         }
 
         StringBuilder orderDisplay = new StringBuilder();
-        double total = 0;
+        total = 0;
 
         try(Connection conn = DriverManager.getConnection(DB_URL, db.user, db.pswd)){
             for(int code : selectedItems){
@@ -119,7 +122,7 @@ private void processPayment(ActionEvent event){
             txStmt.setInt(1, transactionId);
             txStmt.setInt(2, 14);
             txStmt.setInt(3, 15);
-            txStmt.setInt(4, 0);
+            txStmt.setDouble(4, total);
             txStmt.executeUpdate();
         }
 
