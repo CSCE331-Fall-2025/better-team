@@ -8,24 +8,26 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ManagerEmployeeDataController">
 
+  <!-- HEADER -->
   <top>
-    <HBox alignment="CENTER" prefHeight="50.0" style="-fx-background-color: #D16D69;">
+    <HBox alignment="CENTER_LEFT" prefHeight="50.0"
+          style="-fx-background-color: #D16D69;" spacing="10.0">
       <children>
-        <Text text="Manager">
+        <Text text="Manager - Employee Management">
           <HBox.margin><Insets left="30.0"/></HBox.margin>
         </Text>
         <Region HBox.hgrow="ALWAYS"/>
-        <!-- Optional image: comment out if file not present -->
-        <ImageView fitHeight="50.0" preserveRatio="true">
+        <ImageView fitHeight="40.0" preserveRatio="true">
           <HBox.margin><Insets right="30.0"/></HBox.margin>
           <image><Image url="@Panda_Express_Logo.jpg"/></image>
         </ImageView>
@@ -33,39 +35,61 @@
     </HBox>
   </top>
 
+  <!-- MAIN CONTENT -->
   <center>
-    <HBox spacing="10.0" BorderPane.alignment="CENTER">
+    <HBox spacing="15.0" BorderPane.alignment="CENTER" alignment="CENTER">
       <children>
 
         <!-- LEFT: Employees -->
-        <TableView fx:id="employeeListTable" prefHeight="350.0" prefWidth="200.0">
+        <TableView fx:id="employeeListTable"
+                   VBox.vgrow="ALWAYS"
+                   HBox.hgrow="ALWAYS">
           <columns>
-            <TableColumn fx:id="employeeIdColumn"   text="ID"   prefWidth="70.0"/>
-            <TableColumn fx:id="employeeNameColumn" text="Name" prefWidth="130.0"/>
+            <TableColumn fx:id="employeeIdColumn" prefWidth="70.0" text="ID"/>
+            <TableColumn fx:id="employeeNameColumn" prefWidth="130.0" text="Name"/>
           </columns>
         </TableView>
 
-        <!-- RIGHT: Transactions for selected employee -->
-        <TableView fx:id="employeeMetricTable" prefHeight="330.0" prefWidth="360.0">
-          <columns>
-            <TableColumn fx:id="dateColumn" text="Date" prefWidth="120.0"/>
-            <TableColumn fx:id="timeColumn" text="Time" prefWidth="120.0"/>
-            <TableColumn fx:id="costColumn" text="Cost" prefWidth="120.0"/>
-          </columns>
-        </TableView>
-
-        <!-- NAV -->
-        <VBox alignment="CENTER" spacing="10.0">
+        <!-- MIDDLE: Transactions + Buttons -->
+        <VBox spacing="10.0" alignment="CENTER"
+              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
           <children>
-            <Button fx:id="inventoryNavButton" 		text="Inventory"/>
-            <Button fx:id="orderTrendsNavButton"	text="Order Trends"/>
-            <Button fx:id="employeeDataNavButton"  	text="Employee Data"/>
+
+            <!-- Employee Metrics -->
+            <TableView fx:id="employeeMetricTable"
+                       VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date"/>
+                <TableColumn fx:id="timeColumn" prefWidth="120.0" text="Time"/>
+                <TableColumn fx:id="costColumn" prefWidth="120.0" text="Cost"/>
+              </columns>
+            </TableView>
+
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER" spacing="10.0">
+              <children>
+                <Button text="Hire" prefWidth="75.0"/>
+                <Button text="Fire" prefWidth="75.0"/>
+                <Button text="Update" prefWidth="75.0"/>
+              </children>
+            </HBox>
+
+          </children>
+        </VBox>
+
+        <!-- RIGHT: Navigation -->
+        <VBox alignment="CENTER" spacing="10.0" prefWidth="120.0">
+          <children>
+            <Button fx:id="inventoryNavButton" text="Inventory" maxWidth="1.7976931348623157E308"/>
+            <Button fx:id="orderTrendsNavButton" text="Order Trends" maxWidth="1.7976931348623157E308"/>
+            <Button fx:id="employeeDataNavButton" text="Employee Data" maxWidth="1.7976931348623157E308"/>
+            <Button fx:id="employeeDataNavButton1" text="Logout" maxWidth="1.7976931348623157E308"/>
           </children>
         </VBox>
 
       </children>
       <BorderPane.margin>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
       </BorderPane.margin>
     </HBox>
   </center>
