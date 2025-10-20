@@ -16,8 +16,10 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class ServerDefaultController {
-    private static final String URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
-    private dbSetup db = new dbSetup();
+    /*
+    public void setSelectedItems(List<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }*/
 
     //sides
     @FXML
@@ -97,8 +99,6 @@ public class ServerDefaultController {
 
         CancelButton.setOnAction(event -> switchScene("/FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
-
-        LoadNewButtons();
     }
 
     @FXML
@@ -174,47 +174,6 @@ public class ServerDefaultController {
 
     private void handleSuper_Green2() {
         selectedItems.add(1400 + qty);
-    }
-
-    public void addNewButton(String text, int id) {/**/
-        Button newButton = new Button(text);
-        newButton.setOnAction(e->handleAny(id));
-        ButtonBar.setButtonData(newButton, ButtonData.LEFT);
-        EntreeBar.getButtons().add(newButton);
-    }
-    
-    public void handleAny(int x){
-        selectedItems.add(x*100 + qEntree);
-    }
-
-    private void LoadNewButtons(){
-        int lastNormalDish = 44;//42
-        int lastDish = 41;//use connection to get last row
-        try {
-            dbSetup my = new dbSetup();
-            Connection conn = DriverManager.getConnection(URL, my.user, my.pswd);
-
-            String sql = "SELECT dish_id FROM dish ORDER BY dish_id DESC LIMIT 1";
-            PreparedStatement ps1 = conn.prepareStatement(sql);
-            ResultSet rs1 = ps1.executeQuery();
-            rs1.next(); lastDish = rs1.getInt(1);
-            ps1.close();
-
-            for (int k = lastNormalDish; k<=lastDish; k++){//k=id of dish
-                String name = "ex";//use connection to get name current row
-                
-                String sql2 = "select name from dish where dish_id = " + k ;
-                PreparedStatement ps = conn.prepareStatement(sql2);
-                ResultSet rs = ps.executeQuery();
-                rs.next(); name = rs.getString(1);
-                ps.close();
-
-                addNewButton(name, k);
-            }
-
-            conn.close();//end
-
-        } catch (Exception e) {e.printStackTrace();}
     }
 
     private void switchScene(String fileName){

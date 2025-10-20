@@ -152,7 +152,7 @@
                      <center>
                         <ScrollPane prefHeight="125.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <content>
-                              <ButtonBar fx:id="EntreeBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="600.0">
+                              <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="600.0">
                                  <buttons>
                                     <Button fx:id="Honey_Walnut_Shrimp" contentDisplay="CENTER" mnemonicParsing="false">
                                        <graphic>
