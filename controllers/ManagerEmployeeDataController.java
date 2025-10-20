@@ -1,7 +1,13 @@
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 
 public class ManagerEmployeeDataController {
@@ -18,7 +24,7 @@ public class ManagerEmployeeDataController {
     @FXML private TableColumn<ManagerEmployeeDataModel.EmployeeMetric, String> costColumn;
 
     // Nav buttons on the right border to navigate to other manager pages
-    @FXML private Button restockNavButton, orderNavButton, employeeNavButton;
+    @FXML private Button inventoryNavButton, orderTrendsNavButton, employeeDataNavButton;
 
 	// Init the model for this MVC component
     private final ManagerEmployeeDataModel model = new ManagerEmployeeDataModel();
@@ -27,7 +33,12 @@ public class ManagerEmployeeDataController {
     @FXML
     private void initialize() {
         // Bold the current page on the navbar buttons
-        employeeNavButton.setStyle("-fx-font-weight: bold;");
+        employeeDataNavButton.setStyle("-fx-font-weight: bold;");
+		
+		// nav buttons
+		inventoryNavButton.setOnAction(event -> switchScene("/FXML/Inventory.fxml")); 
+		orderTrendsNavButton.setOnAction(event -> switchScene("/FXML/OrderTrends.fxml"));
+		employeeDataNavButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
 
         // Wire columns to getters (PropertyValueFactory looks for getXxx())
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     // getId()
@@ -61,9 +72,18 @@ public class ManagerEmployeeDataController {
         employeeMetricTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-    // ----- Navigation stubs (placeholders) -----
-    @FXML private void handleNavRestock()  { System.out.println("Navigate: Restock (stub)"); }
-    @FXML private void handleNavOrder()    { System.out.println("Navigate: Order Trends (stub)"); }
-    @FXML private void handleNavEmployee() { System.out.println("Already on Employee Data"); }
+	// Scene Switch Helper
+	private void switchScene(String fxmlPath) {
+    	try {
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        	Parent root = loader.load();
+
+        	Stage stage = (Stage) inventoryNavButton.getScene().getWindow();
+        	stage.setScene(new Scene(root));
+        	stage.show();
+    	} catch (Exception e) {
+        	e.printStackTrace();
+    	}
+	}
 }
 
