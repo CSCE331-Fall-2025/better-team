@@ -16,6 +16,7 @@ public class ManagerEmployeeDataController {
     @FXML private TableView<ManagerEmployeeDataModel.Employee> employeeListTable;
     @FXML private TableColumn<ManagerEmployeeDataModel.Employee, Integer> employeeIdColumn;
     @FXML private TableColumn<ManagerEmployeeDataModel.Employee, String>  employeeNameColumn;
+	@FXML private TableColumn<ManagerEmployeeDataModel.Employee, Double> employeeWageColumn;
 
 	// Employee Metric Table fx-ids
     @FXML private TableView<ManagerEmployeeDataModel.EmployeeMetric> employeeMetricTable;
@@ -49,6 +50,7 @@ public class ManagerEmployeeDataController {
         // Wire columns to getters (PropertyValueFactory looks for getXxx())
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     // getId()
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // getName()
+		employeeWageColumn.setCellValueFactory(new PropertyValueFactory<>("wage")); // getWage()
 
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));         // getDate()
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));         // getTime()
