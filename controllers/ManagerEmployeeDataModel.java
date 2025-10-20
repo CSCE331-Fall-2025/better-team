@@ -10,14 +10,23 @@ public class ManagerEmployeeDataModel {
     private static final String URL  = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
 
 	// Employee object to create instances of from the queyr results
-    public static class Employee {
-        private final int id;
-        private final String name;
+	public static class Employee {
+		private final int id;
+		private final String name;
+		private final double wage;
 
-        public Employee(int id, String name) { this.id = id; this.name = name; }
-        public int getId()   { return id; }
-        public String getName(){ return name; }
-    }
+		public Employee(int id, String name, double wage) {
+			this.id = id;
+			this.name = name;
+			this.wage = wage;
+		}
+
+		public int getId() { return id; }
+		public String getName() { return name; }
+		public double getWage() { return wage; }
+	}
+
+    
 
 
 	// Employee Metric object to create instances of from the query
@@ -44,7 +53,7 @@ public class ManagerEmployeeDataModel {
     public ObservableList<Employee> getAllEmployees() {
         ObservableList<Employee> out = FXCollections.observableArrayList();
 
-        final String sql = "SELECT employee_id, name FROM employee ORDER BY employee_id";
+        final String sql = "SELECT employee_id, name, wage FROM employee ORDER BY employee_id";
 		dbSetup db = new dbSetup();
 
         try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
@@ -54,7 +63,8 @@ public class ManagerEmployeeDataModel {
             while (rs.next()) {
                 out.add(new Employee(
                     rs.getInt("employee_id"),
-                    rs.getString("name")
+                    rs.getString("name"),
+					rs.getDouble("wage")
                 ));
             }
         } catch (SQLException e) {
@@ -140,17 +150,24 @@ public class ManagerEmployeeDataModel {
 			e.printStackTrace();
 		}
 	}
-
 	public ManagerEmployeeDataModel.Employee getEmployeeByIdOrName(String input) {
-		final String sql = "SELECT employee_id, name FROM employee WHERE employee_id::text = ? OR LOWER(name) = LOWER(?)";
+		// Include wage in the query
+		final String sql = "SELECT employee_id, name, wage FROM employee " +
+						   "WHERE employee_id::text = ? OR LOWER(name) = LOWER(?)";
+
 		dbSetup db = new dbSetup();
+
 		try (Connection conn = DriverManager.getConnection(URL, db.user, db.pswd);
 			 PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setString(1, input);
 			ps.setString(2, input);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				return new Employee(rs.getInt("employee_id"), rs.getString("name"));
+				return new Employee(
+					rs.getInt("employee_id"),
+					rs.getString("name"),
+					rs.getDouble("wage")
+				);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

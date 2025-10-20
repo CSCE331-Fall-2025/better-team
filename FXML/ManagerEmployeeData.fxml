@@ -47,6 +47,7 @@
           <columns>
             <TableColumn fx:id="employeeIdColumn" prefWidth="70.0" text="ID"/>
             <TableColumn fx:id="employeeNameColumn" prefWidth="130.0" text="Name"/>
+			<TableColumn fx:id="employeeWageColumn" prefWidth="90.0" text="Wage"/>
           </columns>
         </TableView>
 
