@@ -40,15 +40,10 @@ public class ManagerHomeController {
     @FXML
     public void initialize() {
         // Set up what happens when button is clicked
-        closeButton.setOnAction(event -> closeWindow());
+        closeButton.setOnAction(event -> switchScene("/FXML/Login.fxml"));
         restockButton.setOnAction(event -> switchScene("/FXML/Inventory.fxml"));
         orderTrendsButton.setOnAction(event -> switchScene("/FXML/OrderTrends.fxml"));
         employeeDataButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
-    }
-    
-    private void closeWindow() { 
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
     }
 
     private void switchScene(String fileName){
