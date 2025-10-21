@@ -20,10 +20,14 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 
+/**
+ * Controller for the manager home page.
+ */
 public class ManagerHomeController {
     
+    // fx:ids for the view
     @FXML
-    private Button closeButton; //match the fx:id value from Scene Builder
+    private Button closeButton;
 
     @FXML
     private Button restockButton;
@@ -37,6 +41,9 @@ public class ManagerHomeController {
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database"; //database location
     
     // This method runs automatically when the FXML loads
+    /**
+     * Everything that runs when the page is first loaded. Buttons are enabled.
+     */
     @FXML
     public void initialize() {
         // Set up what happens when button is clicked
@@ -46,6 +53,10 @@ public class ManagerHomeController {
         employeeDataButton.setOnAction(event -> switchScene("/FXML/ManagerEmployeeData.fxml"));
     }
 
+    // This method runs automatically when the FXML loads
+    /**
+     * Everything that runs when the page is first loaded. Buttons are enabled.
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
