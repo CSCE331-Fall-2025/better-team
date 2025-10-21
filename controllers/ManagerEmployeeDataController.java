@@ -10,6 +10,9 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 
+/**
+ * Contoller Class for ManagerEmployeeData.fxml
+ */
 public class ManagerEmployeeDataController {
 
     // Employee List Table fx-is;
@@ -32,6 +35,15 @@ public class ManagerEmployeeDataController {
     private final ManagerEmployeeDataModel model = new ManagerEmployeeDataModel();
 
 	
+	/**
+	 * Class Initialize Method -- defines button actions, inits javafx components w/ values, 
+	 *
+	 * <p>
+	 * Handles a lot of the "glue" between the view and model... Binds an action for all buttons 
+	 * (both navgiation buttons and employee management buttons). Binds columns
+	 * in table components to getter functions in order to get employee-transaction data. Loads employees (creating
+	 * employee objects from the sql query).
+	 */
     @FXML
     private void initialize() {
         // Bold the current page on the navbar buttons
@@ -47,7 +59,7 @@ public class ManagerEmployeeDataController {
 		fireButton.setOnAction(e -> onFire());
 		updateButton.setOnAction(e -> onUpdate());
 
-        // Wire columns to getters (PropertyValueFactory looks for getXxx())
+        // Wire columns to getters
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     // getId()
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // getName()
 		employeeWageColumn.setCellValueFactory(new PropertyValueFactory<>("wage")); // getWage()
@@ -70,17 +82,20 @@ public class ManagerEmployeeDataController {
             }
         });
 
-        // Optional: auto-select first employee
+        // Auto-select first employee
         if (!employees.isEmpty()) {
             employeeListTable.getSelectionModel().selectFirst();
         }
-
-        // Optional niceties
         employeeListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         employeeMetricTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-	// Scene Switch Helper
+	/**
+	 * Helper function to switch scenes (for nav buttons)
+	 *
+	 * @param fxmlPath The path to the .fxml file to swithc to
+	 * @return 
+	 */
 	private void switchScene(String fxmlPath) {
     	try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -93,7 +108,13 @@ public class ManagerEmployeeDataController {
         	e.printStackTrace();
     	}
 	}
-	// --- Hire new employee ---
+	/**
+	 * Button Action for "hire" button -- hires new employees
+	 *
+	 * <p>
+	 * Uses JavaFx "TextInputDialog" components to prompt Manager for hiring information like name,
+	 * type of employee, and wage. Includes some checks for valid input. 
+	 */
 	@FXML
 	private void onHire() {
 		TextInputDialog nameDialog = new TextInputDialog();
@@ -130,7 +151,13 @@ public class ManagerEmployeeDataController {
 
 	
 
-	// --- Fire selected employee ---
+	/**
+	 * Button Action for "fire" button -- fires prexisting employees
+	 *
+	 * <p>
+	 * Uses JavaFx "TextInputDialog" components to prompt Manager which employee to fire using either name
+	 * or employee ID. Also flashes a confirmation dialog option. 
+	 */
 	@FXML
 	private void onFire() {
 		TextInputDialog dialog = new TextInputDialog();
@@ -155,7 +182,12 @@ public class ManagerEmployeeDataController {
 		});
 	}
 
-	// --- Update selected employee name ---
+	/**
+	 * Button Action for "update" button -- allows managers to edit existing employee information (name, wage, etc)
+	 *
+	 * <p>
+	 * Uses JavaFx "TextInputDialog" components to prompt Manager which field of the employee they want to change. 
+	 */
 	@FXML
 	private void onUpdate() {
 		TextInputDialog searchDialog = new TextInputDialog();
@@ -200,11 +232,16 @@ public class ManagerEmployeeDataController {
 
 
 
-	// --- Small utility helpers ---
+	/**
+	 * Simple getter function to get all employee objects from the model.
+	 */
 	private void refreshEmployeeList() {
 		employeeListTable.setItems(model.getAllEmployees());
 	}
 
+	/**
+	 * Helper function to create alerts -- used for invalid inputs. 
+	 */
 	private void showAlert(Alert.AlertType type, String title, String msg) {
 		Alert a = new Alert(type);
 		a.setTitle(title);
