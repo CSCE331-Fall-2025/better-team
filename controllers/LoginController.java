@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 
 import javafx.collections.ObservableList;
 
-
+/**
+ *  Controller for Login page
+ */
 public class LoginController {
     @FXML
     private TextField IDField;
@@ -17,7 +19,7 @@ public class LoginController {
     private Button LoginButton;
     @FXML
     private Button ExitButton;
-
+    // URL & db saved for later use in connection to database
     private static final String URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
     private dbSetup db = new dbSetup();
 
@@ -25,9 +27,16 @@ public class LoginController {
 
     @FXML
     public void initialize() {
+        //assign actions to buttons
         LoginButton.setOnAction(e-> LoginButtonHandler());
         ExitButton.setOnAction(e-> closeWindow());
     }
+
+    /**
+     * Upon login button press, gets and saves info in textfield, does nothing if nothing in field or nonint.
+     * Checks database for if int is not a valid ID, if not will end without doing anything.
+     * Otherwise, will find if the ID is a manager or not and redirect to corresponding landing page.
+     */
 
     private void LoginButtonHandler() {
 
@@ -65,6 +74,10 @@ public class LoginController {
     catch (NumberFormatException e) { return def; }
     }
     
+    /**
+     * Switches to the next javafx scene.
+     * @param fileName name of the .fxml file being switched too, path included if necessary.
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -81,7 +94,7 @@ public class LoginController {
             System.exit(0);
         }
     }
-
+    //closes currently opened window
     private void closeWindow() { 
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
