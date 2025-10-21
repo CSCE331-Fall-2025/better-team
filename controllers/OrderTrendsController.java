@@ -22,9 +22,10 @@ import javafx.util.Duration;
  * Controller for the order trends page.
  */
 public class OrderTrendsController {
-    
+
+    // fx:ids for the view
     @FXML   
-    private Button closeButton; //match the fx:id value from Scene Builder
+    private Button closeButton;
 
     @FXML
     private Button restockButton;
@@ -80,6 +81,7 @@ public class OrderTrendsController {
     
     private static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database"; //database location
 
+    // know when to display table of dishes or table of inventory
     private boolean displayDishView = true;
     
     // This method runs automatically when the FXML loads
