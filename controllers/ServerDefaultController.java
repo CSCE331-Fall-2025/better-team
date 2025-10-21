@@ -20,7 +20,11 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
+/**
+ *  Controller for ServerDefault page
+ */
 public class ServerDefaultController {
+    // URL & db saved for later use in connection to database
     private static final String URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
     private dbSetup db = new dbSetup();
 
@@ -67,24 +71,30 @@ public class ServerDefaultController {
     @FXML
     private Button AddOrderButton; //match the fx:id value from Scene Builder
 	
+    //buttonbar, for adding new buttons.
 	@FXML
 	private ButtonBar EntreeBar;
     
-    //stuff
-    
+    //list of items selected, to be sent to checkout
     private List<Integer> selectedItems = new ArrayList<>();;
+    //quanity of the item to be picked
     private int qty = 1;
     
+    //allows data to be passed between pages by setting qty of this
     public void setqty(int qty) {
         this.qty = qty;
     }   
-
+    //allows data to be passed between pages by setting selected items of this
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
+    /**
+     * Runs upons page load, enables buttons and sets actions.
+     */
     @FXML
     public void initialize() {
+        // assign handlers to buttons
         //sides
         White_Steamed_Rice.setOnAction(event -> handleWhite_Steamed_Rice());
         Fried_Rice.setOnAction(event -> handleFried_Rice());
@@ -102,13 +112,18 @@ public class ServerDefaultController {
         Hot_Orange_Chicken.setOnAction(event -> handleHot_Orange_Chicken());
         String_Bean_Chicken_Breast.setOnAction(event -> handleString_Bean_Chicken_Breast());
         Super_Green2.setOnAction(event -> handleSuper_Green2());
-
+        //button buttoms
         CancelButton.setOnAction(event -> switchScene("/FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
-
+        
         LoadNewButtons();
     }
 
+    /**
+     * Switches to checkout page with an order loaded, consisting of the 
+     * SelectedItems list which is updated in checkout to match the list created here
+     * @param event the event for which this is to be called, also used in finding source
+     */
     @FXML
     private void handleAddOrderButton(ActionEvent event) {
         try {
@@ -127,6 +142,9 @@ public class ServerDefaultController {
         }
     }
 
+    //handlers for each button, technically overkill, but thorough
+
+    //sides
     private void handleWhite_Steamed_Rice(){
         selectedItems.add(900 + qty);
     }
@@ -183,18 +201,30 @@ public class ServerDefaultController {
     private void handleSuper_Green2() {
         selectedItems.add(1400 + qty);
     }
-
+    /**
+     * Adds a new button to EntreeBar, which on press runs handleAny on the given ID
+     * @param text text to be displayed in the button
+     * @param id id necessary for knowing which item to add to selectedItems
+     */
     public void addNewButton(String text, int id) {/**/
         Button newButton = new Button(text);
         newButton.setOnAction(e->handleAny(id));
 		ButtonBar.setButtonData(newButton, ButtonBar.ButtonData.LEFT);
         EntreeBar.getButtons().add(newButton);
     }
-    
+    /**
+     * handler for any given button, based on the given id
+     * Retroactively could've been used for others but made later out of necessity
+     * @param x the passed in id
+     */
     public void handleAny(int x){
         selectedItems.add(x*100 + qty);
     }
-
+    /**
+     *  Used once in Initialize to load buttons added postdev
+     *  Checks the last ID in dishes, and for each id between the known last
+     *  and that one, adds a button with the corresponding dish name and ID
+     */
     private void LoadNewButtons(){
         int lastNormalDish = 46;//42
         int lastDish = 41;//use connection to get last row
@@ -225,6 +255,10 @@ public class ServerDefaultController {
         } catch (Exception e) {e.printStackTrace();}
     }
 
+    /**
+     * Switches to the next javafx scene.
+     * @param fileName name of the .fxml file being switched too, path included if necessary.
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -241,7 +275,7 @@ public class ServerDefaultController {
             System.exit(0);
         }
     }
-
+    //closes currently opened window
     private void closeWindow() { 
         Stage stage = (Stage) CancelButton.getScene().getWindow();
         stage.close();
