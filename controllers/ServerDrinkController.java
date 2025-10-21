@@ -15,11 +15,10 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
+/**
+ *  Controller for ServerDrink page
+ */
 public class ServerDrinkController {
-    /*
-    public void setSelectedItems(List<Integer> selectedItems) {
-        this.selectedItems = selectedItems;
-    }*/
 
     //drinks
     @FXML
@@ -51,8 +50,9 @@ public class ServerDrinkController {
     @FXML
     private Button AddOrderButton; //match the fx:id value from Scene Builder
     
+    //list of items selected, to be sent to checkout
     private List<Integer> selectedItems = new ArrayList<>();;
-
+    //allows data to be passed between pages by setting selected items of this
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
     }
@@ -60,7 +60,8 @@ public class ServerDrinkController {
     // This method runs automatically when the FXML loads
     @FXML
     public void initialize() {
-        // Set up what happens when button is clicked
+        // assign handlers to buttons
+        //drinks
         Coke.setOnAction(e -> handleCoke());
         Sprite.setOnAction(e -> handleSprite());
         DrPepper.setOnAction(e -> handleDrPepper());
@@ -69,12 +70,13 @@ public class ServerDrinkController {
         PomPin.setOnAction(e -> handlePomPin());
         WatMan.setOnAction(e -> handleWatMan());
         PeachLychee.setOnAction(e -> handlePeachLychee());
-
+        //bottom buttons
         CancelButton.setOnAction(event -> switchScene("/FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
     }
     
-    // Your method to run the database query
+    //handlers for each button, technically overkill, but thorough
+    //drinks
     private void handleCoke() {
         selectedItems.add(601);
     }
@@ -107,6 +109,11 @@ public class ServerDrinkController {
         selectedItems.add(1801);
     }
 
+    /**
+     * Switches to checkout page with an order loaded, consisting of the 
+     * SelectedItems list which is updated in checkout to match the list created here
+     * @param event the event for which this is to be called, also used in finding source
+     */
     @FXML
     private void handleAddOrderButton(ActionEvent event) {
         try {
@@ -125,6 +132,10 @@ public class ServerDrinkController {
         }
     }
 
+    /**
+     * Switches to the next javafx scene.
+     * @param fileName name of the .fxml file being switched too, path included if necessary.
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -142,7 +153,7 @@ public class ServerDrinkController {
         }
         
     }
-
+    //closes currently opened window, unused here, but good to keep
     private void closeWindow() { 
         Stage stage = (Stage) CancelButton.getScene().getWindow();
         stage.close();

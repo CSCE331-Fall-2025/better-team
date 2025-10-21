@@ -15,11 +15,10 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
+/**
+ *  Controller for ServerApp page
+ */
 public class ServerAppController {
-
-    /*public void setSelectedItems(List<Integer> selectedItems) {
-        this.selectedItems = selectedItems;
-    }*/
 
     //apps
     @FXML
@@ -51,16 +50,17 @@ public class ServerAppController {
     // This method runs automatically when the FXML loads
     @FXML
     public void initialize() {
-        // Set up what happens when button is clicked
+        // assign handlers to buttons
+        //apps
         ChickenRoll.setOnAction(e -> handleChickenRoll());
         VegRoll.setOnAction(e -> handleVegRoll());
         Rangoon.setOnAction(e -> handleRangoon());
-
+        //bottom button
         CancelButton.setOnAction(event -> switchScene("FXML/ServerOrder.fxml"));
         AddOrderButton.setOnAction(this::handleAddOrderButton);
     }
     
-    // Your method to run the database query
+    // apps
     private void handleChickenRoll() {
         selectedItems.add(2100 + qApp);
     }
@@ -72,7 +72,11 @@ public class ServerAppController {
     private void handleRangoon() {
         selectedItems.add(1900 + qApp);
     }
-
+    /**
+     * Switches to checkout page with an order loaded, consisting of the 
+     * SelectedItems list which is updated in checkout to match the list created here
+     * @param event the event for which this is to be called, also used in finding source
+     */
     @FXML
     private void handleAddOrderButton(ActionEvent event) {
         try {
@@ -91,6 +95,10 @@ public class ServerAppController {
         }
     }
 
+    /**
+     * Switches to the next javafx scene.
+     * @param fileName name of the .fxml file being switched too, path included if necessary.
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -109,6 +117,7 @@ public class ServerAppController {
         
     }
 
+    //closes currently opened window, unused here, but good to keep
     private void closeWindow() { 
         Stage stage = (Stage) CancelButton.getScene().getWindow();
         stage.close();
