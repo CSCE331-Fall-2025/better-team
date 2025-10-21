@@ -41,7 +41,7 @@ public class ServerAppController {
     
     private List<Integer> selectedItems = new ArrayList<>();;
 
-    private int qApp;
+    private int qApp = 1;
 
     public void setSelectedItems(List<Integer> selectedItems) {
         this.selectedItems = selectedItems;
