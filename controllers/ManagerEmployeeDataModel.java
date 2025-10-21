@@ -20,7 +20,9 @@ public class ManagerEmployeeDataModel {
     // ---- JDBC connection config  ----
     private static final String URL  = "jdbc:postgresql://csce-315-db.engr.tamu.edu/CSCE315Database";
 
-	// Employee object to create instances of from the queyr results
+	/**
+	 * Lightweight Employee Class to capture employee fields from DB
+	 */
 	public static class Employee {
 		private final int id;
 		private final String name;
@@ -55,7 +57,10 @@ public class ManagerEmployeeDataModel {
     
 
 
-	// Employee Metric object to create instances of from the query
+	
+	/**
+	 * Lightweight Employee Metric Class to capture employee data (transactions) from DB
+	 */
     public static class EmployeeMetric {
         private final String date;
         private final String time;
