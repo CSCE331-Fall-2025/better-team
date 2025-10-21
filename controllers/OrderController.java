@@ -10,9 +10,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code OrderController} class handles user interaction
+ * on the order selection screen. It manages navigation between
+ * menu categories (bowls, plates, drinks, etc.) and maintains
+ * the shared list of selected items across different pages.
+ */
 public class OrderController {
 
-
+    /** A static list that holds IDs of selected items across scenes. */
     private static final List<Integer> selectedItems = new ArrayList<>();
 
     @FXML private Button bowlButton;
@@ -23,10 +29,19 @@ public class OrderController {
     @FXML private Button checkoutButton;
     @FXML private Button logoutButton;
 
+    /**
+     * Returns the list of selected item IDs shared across all pages.
+     *
+     * @return a list of selected item IDs
+     */
     public static List<Integer> getSelectedItems() {
         return selectedItems;
     }
 
+    /**
+     * Initializes the controller after the FXML file is loaded.
+     * This method sets up all the button actions with handlers.
+     */
     @FXML
     public void initialize() {
         bowlButton.setOnAction(this::handleDefault);
@@ -37,42 +52,67 @@ public class OrderController {
         drinksButton.setOnAction(this::handleDrink);
 
         checkoutButton.setOnAction(this::handleCheckout);
-
         logoutButton.setOnAction(this::handlelogout);
     }
 
+    /**
+     * Handles clicks for default meal buttons
+     * and loads the entree/side menu scene.
+     *
+     * @param event the click event from a button
+     */
     @FXML
     private void handleDefault(ActionEvent event) {
         switchSceneWithList(event, "/FXML/ServerDefault.fxml");
     }
 
+    /**
+     * Handles clicks on the appetizer button.
+     *
+     * @param event the click event from a button
+     */
     @FXML
     private void handleApp(ActionEvent event) {
         switchSceneWithList(event, "/FXML/ServerApp.fxml");
     }
 
+    /**
+     * Handles clicks on the drink button.
+     *
+     * @param event the click event from a button
+     */
     @FXML
     private void handleDrink(ActionEvent event) {
         switchSceneWithList(event, "/FXML/ServerDrink.fxml");
     }
 
+    /**
+     * Handles clicks on the checkout button.
+     *
+     * @param event the click event from a button
+     */
     @FXML
     private void handleCheckout(ActionEvent event) {
         switchSceneWithList(event, "/FXML/ServerCheckout.fxml");
     }
 
+    /**
+     * Handles clicks on the logout button
+     * and returns to the login scene.
+     *
+     * @param event the click event from a button
+     */
     @FXML
     private void handlelogout(ActionEvent event) {
         switchSceneWithList(event, "/FXML/Login.fxml");
     }
 
     /**
-     * Moves the shopping cart across pages.
-     * The fxmlfile argument must be a valid fxmlfile.
-     * This function just works when you pass an event and file in.
-     * The screen will load with the new scene but keep the shopping cart.
-     * @param event this is for any event, usually a click with a button.
-     * @param fxmlFile the file name of the new fxml page.
+     * Switches scenes while preserving the selected items.
+     * This ensures that the cart is kept between pages.
+     *
+     * @param event the button click event that triggered the scene change
+     * @param fxmlFile the relative path to the FXML file for the new scene
      */
     private void switchSceneWithList(ActionEvent event, String fxmlFile) {
         try {
@@ -81,17 +121,13 @@ public class OrderController {
 
             Object ctrl = loader.getController();
             if (ctrl instanceof ServerDefaultController) {
-                ServerDefaultController defaultCtrl = (ServerDefaultController) ctrl;
-                defaultCtrl.setSelectedItems(selectedItems);
+                ((ServerDefaultController) ctrl).setSelectedItems(selectedItems);
             } else if (ctrl instanceof ServerAppController) {
-                ServerAppController appCtrl = (ServerAppController) ctrl;
-                appCtrl.setSelectedItems(selectedItems);
+                ((ServerAppController) ctrl).setSelectedItems(selectedItems);
             } else if (ctrl instanceof ServerDrinkController) {
-                ServerDrinkController drinkCtrl = (ServerDrinkController) ctrl;
-                drinkCtrl.setSelectedItems(selectedItems);
+                ((ServerDrinkController) ctrl).setSelectedItems(selectedItems);
             } else if (ctrl instanceof CheckoutController) {
-                CheckoutController checkoutCtrl = (CheckoutController) ctrl;
-                checkoutCtrl.setSelectedItems(selectedItems);
+                ((CheckoutController) ctrl).setSelectedItems(selectedItems);
             }
 
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
