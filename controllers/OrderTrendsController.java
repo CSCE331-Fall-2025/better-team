@@ -18,6 +18,9 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 
+/**
+ * Controller for the order trends page.
+ */
 public class OrderTrendsController {
     
     @FXML   
@@ -80,6 +83,9 @@ public class OrderTrendsController {
     private boolean displayDishView = true;
     
     // This method runs automatically when the FXML loads
+    /**
+     * Everything that runs when the page is first loaded. Buttons/Tables/Time are enabled.
+     */
     @FXML
     public void initialize() {
         // Set up what happens when button is clicked
@@ -140,6 +146,9 @@ public class OrderTrendsController {
     }
     
     // Your method to run the database query
+    /**
+     * Fills the leftmost table with dishes.
+     */
     private void dishQuery() {
 
         try {
@@ -180,6 +189,9 @@ public class OrderTrendsController {
         }
     }
 
+    /**
+     * Fills the leftmost table with inventory.
+     */
     private void inventoryQuery() {
 
         try {
@@ -220,6 +232,9 @@ public class OrderTrendsController {
         }
     }
 
+    /**
+     * Fills the main chart with data selected in the leftmost table.
+     */
     private void chartQuery() {
 
         ObservableList<String> selectedItems = dishTable.getSelectionModel().getSelectedItems();
@@ -313,6 +328,10 @@ public class OrderTrendsController {
         }
     }
 
+    /**
+     * Fills the rightmost table with a current day report of sales.
+     * @param isZ is the report a Z report? If not then it's an X report.
+     */
     private void reportQuery(boolean isZ){
 
         LocalDate reportDate = LocalDate.now();
@@ -381,6 +400,10 @@ public class OrderTrendsController {
         }
     }
 
+    /**
+     * Switches to the next javafx scene.
+     * @param fileName name of the .fxml file being switched too, path included if necessary.
+     */
     private void switchScene(String fileName){
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -399,19 +422,42 @@ public class OrderTrendsController {
         
     }
 
+    /**
+     * Holds data for the rightmost table the report table.
+     * Consists of time, number of interactions, and total sales in dollars.
+     */
     public static class ReportData{
         private final String time;
         private final int transactions;
         private final double sales;
 
+        /**
+         * ReportData Constructor.
+         * @param time string of the hour, formatted XX:00 - XX:59.
+         * @param transactions total number of transactions in that hour.
+         * @param sales total number of sales, in dollars, in that hour.
+         */
         public ReportData(String time, int transactions, double sales){
             this.time = time;
             this.transactions = transactions;
             this.sales = sales;
         }
 
+
+        /**
+         * Getter for the time string from ReportData. 
+         * @return String of the hour, formatted XX:00 - XX:59.
+         */
         public String getTime() {return time;}
+        /**
+         * Getter for the total transactions from ReportData. 
+         * @return int of transactions in that hour.
+         */
         public int getTransactions() {return transactions;}
+        /**
+         * Getter for the total sales from ReportData. 
+         * @return double of sales, in dollars, in that hour.
+         */
         public double getSales() {return sales;}
     }
 }
